@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in · Citron CRM</title>
+  <meta name="description" content="Sign in to Citron CRM" />
+  <link rel="icon" type="image/png" href="/assets/crm/manifest/apple-icon-180.png" />
+  <link rel="stylesheet" href="/assets/crm/citron-ds/fonts.css" />
+  <link rel="stylesheet" href="/assets/crm/citron-ds/inkblot-variables.css" />
+  <style>
+    /* Citron Identity auth stage, ported from
+       citron-identity/src/components/login/AuthExperience.module.scss.
+       All values come from Citron DS variables. */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background: var(--inkblot-semantic-color-background-secondary);
+      color: var(--inkblot-semantic-color-text-primary);
+      font-family: var(--inkblot-typography-font-family-sans);
+    }
+
+    #grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .layout {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: clamp(1rem, 4vw, 4.5rem) clamp(1rem, 4vw, 4rem);
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.75rem, 2vw, 1rem);
+      width: 100%;
+      max-width: min(24rem, 100%);
+      animation: panel-in 0.5s var(--inkblot-easing-signature) both;
+    }
+
+    @keyframes panel-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      padding: clamp(1.25rem, 6vw, 2rem);
+      border-radius: var(--inkblot-radius-lg);
+      background: var(--inkblot-semantic-color-background-secondary);
+      border: 1px solid var(--inkblot-semantic-color-border-default);
+      box-shadow: var(--inkblot-shadow-xs);
+    }
+
+    .card-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: clamp(1rem, 4vw, 1.25rem);
+    }
+
+    .card-title {
+      font-family: var(--inkblot-typography-font-family-display);
+      font-size: clamp(var(--inkblot-typography-font-size-xl), 5.5vw, var(--inkblot-typography-font-size-2xl));
+      font-weight: var(--inkblot-typography-font-weight-semibold);
+      letter-spacing: var(--inkblot-typography-letter-spacing-tight);
+      margin-bottom: 0.25rem;
+    }
+
+    .card-subtitle {
+      font-size: var(--inkblot-typography-font-size-sm);
+      line-height: var(--inkblot-typography-line-height-normal);
+      color: var(--inkblot-semantic-color-text-secondary);
+    }
+
+    .card-subtitle strong { color: var(--inkblot-semantic-color-text-primary); }
+
+    /* ---- mascot ---- */
+    .mascot {
+      flex: 0 0 50px;
+      width: 50px;
+      height: 50px;
+      pointer-events: none;
+    }
+
+    .mascot svg { width: 100%; height: 100%; overflow: visible; }
+
+    .mascot .face {
+      transform-origin: 50% 55%;
+      animation: mascot-idle 4.5s var(--inkblot-easing-in-out) infinite;
+      transition: transform 0.5s var(--inkblot-easing-expressive);
+    }
+
+    .mascot .eyes {
+      transition: transform 0.25s var(--inkblot-easing-out);
+    }
+
+    .mascot .eye {
+      fill: var(--inkblot-color-accent-citron-500);
+      transform-origin: center 34px;
+      animation: mascot-blink 5.2s linear infinite;
+      transition: transform 0.2s var(--inkblot-easing-out);
+    }
+
+    .mascot .smile { stroke: var(--inkblot-color-accent-citron-500); }
+
+    /* not peeking: eyes shut + face turned away while a hidden password is typed */
+    .mascot.covering .eye { animation: none; transform: scaleY(0.08); }
+    .mascot.covering .face { transform: rotate(-14deg) translateX(-3px); }
+
+    .mascot.confused .face { transform: rotate(8deg); animation: none; }
+
+    .mascot.celebrating .face {
+      animation: mascot-celebrate 1s var(--inkblot-easing-expressive) both;
+    }
+
+    @keyframes mascot-idle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    @keyframes mascot-blink {
+      0%, 92%, 100% { transform: scaleY(1); }
+      94%, 97% { transform: scaleY(0.12); }
+    }
+
+    @keyframes mascot-celebrate {
+      0% { transform: scale(1) rotate(0); }
+      45% { transform: scale(1.18) rotate(348deg) translateY(-6px); }
+      100% { transform: scale(1) rotate(360deg); }
+    }
+
+    /* ---- steps / form ---- */
+    .step { display: none; flex-direction: column; }
+    .step.active { display: flex; animation: step-in 0.32s var(--inkblot-easing-out) both; }
+
+    @keyframes step-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fields { display: flex; flex-direction: column; gap: 10px; }
+
+    .field {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 48px;
+      padding: 0 12px;
+      border-radius: var(--inkblot-radius-md);
+      background: var(--inkblot-semantic-color-background-primary);
+      border: 1px solid var(--inkblot-semantic-color-border-default);
+      transition: border-color var(--inkblot-duration-fast) var(--inkblot-easing-default),
+        background-color var(--inkblot-duration-fast) var(--inkblot-easing-default),
+        box-shadow var(--inkblot-duration-fast) var(--inkblot-easing-default);
+    }
+
+    .field:hover:not(.focused) { border-color: var(--inkblot-semantic-color-border-strong); }
+
+    .field.focused {
+      background: var(--inkblot-semantic-color-background-secondary);
+      border-color: var(--inkblot-semantic-color-border-focus);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--inkblot-color-accent-citron-500) 16%, transparent);
+    }
+
+    .field.error { border-color: var(--inkblot-semantic-color-status-error); }
+
+    .field .leading {
+      display: inline-flex;
+      flex-shrink: 0;
+      color: var(--inkblot-semantic-color-text-tertiary);
+      transition: color var(--inkblot-duration-fast) var(--inkblot-easing-default);
+    }
+
+    .field.focused .leading { color: var(--inkblot-semantic-color-text-secondary); }
+    .field.error .leading { color: var(--inkblot-semantic-color-status-error); }
+
+    .field input {
+      flex: 1;
+      min-width: 0;
+      height: 100%;
+      font-size: var(--inkblot-typography-font-size-base);
+      font-family: var(--inkblot-typography-font-family-sans);
+      color: var(--inkblot-semantic-color-text-primary);
+      background: transparent;
+      border: none;
+      outline: none;
+      caret-color: var(--inkblot-semantic-color-interactive-primary);
+    }
+
+    .field input::placeholder { color: var(--inkblot-semantic-color-text-tertiary); }
+
+    .field input:-webkit-autofill,
+    .field input:-webkit-autofill:hover,
+    .field input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 1000px var(--inkblot-semantic-color-background-secondary) inset;
+      -webkit-text-fill-color: var(--inkblot-semantic-color-text-primary);
+      transition: background-color 999999s ease-in-out 0s;
+    }
+
+    .peek {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: var(--inkblot-radius-sm);
+      background: transparent;
+      color: var(--inkblot-semantic-color-text-tertiary);
+      cursor: pointer;
+      transition: color var(--inkblot-duration-fast) var(--inkblot-easing-default),
+        background-color var(--inkblot-duration-fast) var(--inkblot-easing-default);
+    }
+
+    .peek:hover {
+      color: var(--inkblot-semantic-color-text-primary);
+      background: var(--inkblot-semantic-color-background-tertiary);
+    }
+
+    .identity-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      max-width: 100%;
+      margin-bottom: 18px;
+      padding: 6px 10px;
+      border: 1px solid var(--inkblot-semantic-color-border-default);
+      border-radius: var(--inkblot-radius-full);
+      background: var(--inkblot-semantic-color-background-primary);
+      font-family: inherit;
+      font-size: var(--inkblot-typography-font-size-sm);
+      color: var(--inkblot-semantic-color-text-secondary);
+      cursor: pointer;
+      transition: border-color var(--inkblot-duration-fast) var(--inkblot-easing-default);
+    }
+
+    .identity-chip:hover { border-color: var(--inkblot-semantic-color-border-strong); }
+
+    .identity-chip .email {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .identity-chip .change {
+      color: var(--inkblot-semantic-color-text-link);
+      font-weight: var(--inkblot-typography-font-weight-medium);
+    }
+
+    .error-region { min-height: 22px; display: flex; align-items: center; }
+
+    .error-message {
+      margin: 2px;
+      font-size: var(--inkblot-typography-font-size-sm);
+      color: var(--inkblot-semantic-color-status-error);
+      animation: step-in 0.2s var(--inkblot-easing-out) both;
+    }
+
+    .submit {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 48px;
+      margin-top: 4px;
+      border: none;
+      border-radius: var(--inkblot-radius-md);
+      cursor: pointer;
+      font-family: var(--inkblot-typography-font-family-sans);
+      font-size: var(--inkblot-typography-font-size-base);
+      font-weight: var(--inkblot-typography-font-weight-semibold);
+      color: var(--inkblot-semantic-color-text-inverse);
+      background: var(--inkblot-semantic-color-interactive-primary);
+      transition: background-color var(--inkblot-duration-fast) var(--inkblot-easing-default),
+        opacity var(--inkblot-duration-fast) var(--inkblot-easing-default);
+    }
+
+    .submit:hover:not(:disabled) { background: var(--inkblot-semantic-color-interactive-primary-hover); }
+    .submit:active:not(:disabled) { background: var(--inkblot-semantic-color-interactive-primary-active); }
+    .submit:disabled { cursor: not-allowed; opacity: 0.45; }
+
+    .submit .arrow {
+      position: absolute;
+      right: 16px;
+      opacity: 0.85;
+      transition: transform var(--inkblot-duration-fast) var(--inkblot-easing-default);
+    }
+
+    .submit:hover:not(:disabled) .arrow { transform: translateX(2px); }
+
+    .submit .spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid color-mix(in srgb, var(--inkblot-semantic-color-text-inverse) 30%, transparent);
+      border-top-color: var(--inkblot-semantic-color-text-inverse);
+      animation: spin 0.7s linear infinite;
+    }
+
+    .submit.loading .label, .submit.loading .arrow { visibility: hidden; }
+    .submit.loading .spinner { display: block; position: absolute; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .link-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0;
+      border: none;
+      background: none;
+      font-family: inherit;
+      font-size: var(--inkblot-typography-font-size-sm);
+      color: var(--inkblot-semantic-color-text-secondary);
+      cursor: pointer;
+      transition: color var(--inkblot-duration-fast) var(--inkblot-easing-default);
+    }
+
+    .link-button:hover { color: var(--inkblot-semantic-color-text-link); }
+
+    .sent-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 12px;
+      border-radius: var(--inkblot-radius-md);
+      color: var(--inkblot-semantic-color-interactive-primary);
+      background: var(--inkblot-semantic-color-accent-subtle);
+      border: 1px solid var(--inkblot-semantic-color-border-default);
+    }
+
+    .footer {
+      font-size: var(--inkblot-typography-font-size-sm);
+      color: var(--inkblot-semantic-color-text-secondary);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--inkblot-semantic-color-border-focus);
+      outline-offset: 2px;
+      border-radius: var(--inkblot-radius-sm);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grid" aria-hidden="true"></canvas>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="card">
+        <!-- step: email -->
+        <form class="step active" id="step-email" novalidate>
+          <div class="card-header-row">
+            <div>
+              <h1 class="card-title">Welcome to Citron</h1>
+              <p class="card-subtitle">Sign in to your CRM workspace.</p>
+            </div>
+            <div class="mascot" id="mascot-slot-email"></div>
+          </div>
+          <div class="fields">
+            <div class="field">
+              <span class="leading">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </span>
+              <input id="email" type="email" autocomplete="email" placeholder="Email" autofocus />
+            </div>
+          </div>
+          <div class="error-region" id="error-email" aria-live="polite"></div>
+          <button class="submit" id="btn-email" type="submit">
+            <span class="label">Continue</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+        </form>
+
+        <!-- step: password -->
+        <form class="step" id="step-password" novalidate>
+          <div class="card-header-row">
+            <div>
+              <h1 class="card-title">Welcome back</h1>
+            </div>
+            <div class="mascot" id="mascot-slot-password"></div>
+          </div>
+          <button type="button" class="identity-chip" data-action="change-email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span class="email" id="chip-email"></span>
+            <span class="change">Change</span>
+          </button>
+          <div class="fields">
+            <div class="field">
+              <span class="leading">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <input id="password" type="password" autocomplete="current-password" placeholder="Password" />
+              <button type="button" class="peek" id="peek" aria-label="Show password">
+                <svg id="eye-open" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg id="eye-closed" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="error-region" id="error-password" aria-live="polite"></div>
+          <button class="submit" id="btn-password" type="submit">
+            <span class="label">Sign in</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+          <div class="options">
+            <button type="button" class="link-button" data-action="forgot">Forgot password?</button>
+          </div>
+        </form>
+
+        <!-- step: forgot -->
+        <form class="step" id="step-forgot" novalidate>
+          <div class="card-header-row">
+            <div>
+              <h1 class="card-title">Reset your password</h1>
+              <p class="card-subtitle">Enter your email and we'll send you a reset link.</p>
+            </div>
+            <div class="mascot" id="mascot-slot-forgot"></div>
+          </div>
+          <div class="fields">
+            <div class="field">
+              <span class="leading">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </span>
+              <input id="forgot-email" type="email" autocomplete="email" placeholder="Email" />
+            </div>
+          </div>
+          <div class="error-region" id="error-forgot" aria-live="polite"></div>
+          <button class="submit" id="btn-forgot" type="submit">
+            <span class="label">Send reset link</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+          <div class="options">
+            <button type="button" class="link-button" data-action="change-email">← Back to sign in</button>
+          </div>
+        </form>
+
+        <!-- step: forgot sent -->
+        <div class="step" id="step-forgot-sent">
+          <span class="sent-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/></svg>
+          </span>
+          <h1 class="card-title">Check your email</h1>
+          <p class="card-subtitle">
+            If an account exists for <strong id="sent-email"></strong>, a reset link is on its way.
+          </p>
+          <div class="options">
+            <button type="button" class="link-button" data-action="change-email">← Back to sign in</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="footer">Citron CRM — built by <strong>Inkblot Studio</strong>.</p>
+    </section>
+  </main>
+
+  <script>
+    'use strict';
+    /* Citron Identity login experience, wired to Frappe session auth.
+     *
+     * CITRON IDENTITY INTEGRATION NOTES
+     * ---------------------------------
+     * This page reproduces citron-identity's LoginExperience flow. Frappe's
+     * /api/method/login creates the CRM session today. To hand auth over to
+     * citron-identity-api later, swap the marked calls below:
+     *   - account check:   POST {IDENTITY_API}/api/auth/check   (email step)
+     *   - sign in:         POST {IDENTITY_API}/api/auth/login   → {mfaRequired, authentication:{accessToken}}
+     *   - password reset:  POST {IDENTITY_API}/api/auth/password-reset
+     * and exchange the Identity access token for a Frappe session server-side.
+     */
+
+    var REDIRECT_TO = "{{ redirect_to | e }}" || "/crm";
+
+    // ---------- mascot (shared node moved between step headers) ----------
+    var MASCOT_SVG =
+      '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<g class="face"><g class="eyes">' +
+      '<rect class="eye" x="31" y="17" width="13" height="34"/>' +
+      '<rect class="eye" x="56" y="17" width="13" height="34"/></g>' +
+      '<path class="smile" d="M 12 40 A 38 38 0 0 0 88 40" fill="none" stroke-width="10"/>' +
+      '</g></svg>';
+
+    var mascot = document.createElement('div');
+    mascot.className = 'mascot-inner';
+    mascot.style.width = '100%';
+    mascot.style.height = '100%';
+    mascot.innerHTML = MASCOT_SVG;
+
+    function mountMascot(stepId) {
+      var slot = document.querySelector('#' + stepId + ' .mascot');
+      if (slot) slot.appendChild(mascot);
+    }
+
+    function setMood(mood) {
+      ['covering', 'confused', 'celebrating'].forEach(function (m) {
+        mascot.parentElement && mascot.parentElement.classList.remove(m);
+      });
+      // mood classes live on the .mascot wrapper so CSS above applies
+      if (mood && mascot.parentElement) mascot.parentElement.classList.add(mood);
+    }
+
+    // gaze follows the pointer (like Identity's useSpring eye tracking)
+    var eyes = null;
+    document.addEventListener('pointermove', function (e) {
+      if (!mascot.parentElement || mascot.parentElement.classList.contains('covering')) return;
+      if (!eyes) eyes = mascot.querySelector('.eyes');
+      var r = mascot.getBoundingClientRect();
+      if (!r.width) return;
+      var span = Math.max(r.width * 4.5, 140);
+      var dx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / span));
+      var dy = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / span));
+      eyes.style.transform = 'translate(' + dx * 6 + 'px,' + dy * 5 + 'px)';
+    }, { passive: true });
+
+    // ---------- dot-grid canvas (port of citron-identity GridCanvas) ----------
+    (function () {
+      var canvas = document.getElementById('grid');
+      var ctx = canvas.getContext('2d');
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var spacing = 32, R = 72, BASE = 0.1, DOT = 1.1;
+      var width = 0, height = 0, dots = [];
+      var pointer = { x: -9999, y: -9999 };
+
+      function resize() {
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        dots = [];
+        for (var r = 0; r <= Math.ceil(height / spacing); r++)
+          for (var c = 0; c <= Math.ceil(width / spacing); c++)
+            dots.push({ x: c * spacing, y: r * spacing });
+      }
+
+      function frame() {
+        ctx.clearRect(0, 0, width, height);
+        for (var i = 0; i < dots.length; i++) {
+          var d = dots[i];
+          var dx = d.x - pointer.x, dy = d.y - pointer.y;
+          var dist2 = dx * dx + dy * dy;
+          var alpha = dist2 < R * R ? BASE + (1 - Math.sqrt(dist2) / R) * 0.06 : BASE;
+          ctx.fillStyle = 'rgba(29, 28, 25, ' + alpha + ')';
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, DOT, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        if (!reduced) requestAnimationFrame(frame);
+      }
+
+      window.addEventListener('resize', resize);
+      if (!reduced) {
+        document.addEventListener('pointermove', function (e) {
+          pointer.x = e.clientX; pointer.y = e.clientY;
+        }, { passive: true });
+      }
+      resize();
+      frame();
+    })();
+
+    // ---------- step machine ----------
+    var steps = ['step-email', 'step-password', 'step-forgot', 'step-forgot-sent'];
+
+    function show(stepId) {
+      steps.forEach(function (id) {
+        document.getElementById(id).classList.toggle('active', id === stepId);
+      });
+      mountMascot(stepId);
+      setMood(null);
+      var first = document.querySelector('#' + stepId + ' input');
+      if (first) setTimeout(function () { first.focus(); }, 60);
+    }
+
+    function setError(region, message) {
+      var el = document.getElementById(region);
+      el.innerHTML = message
+        ? '<p class="error-message" role="alert"></p>'
+        : '';
+      if (message) el.firstChild.textContent = message;
+      setMood(message ? 'confused' : null);
+    }
+
+    function setLoading(buttonId, on) {
+      var b = document.getElementById(buttonId);
+      b.classList.toggle('loading', on);
+      b.disabled = on;
+    }
+
+    function isValidEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+
+    // ---------- email step ----------
+    document.getElementById('step-email').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = document.getElementById('email').value.trim();
+      if (!isValidEmail(email) && email.toLowerCase() !== 'administrator') {
+        setError('error-email', 'Please enter a valid email address');
+        return;
+      }
+      setError('error-email', '');
+      // CITRON IDENTITY: swap in POST /api/auth/check to branch to
+      // signup / SSO steps like the Identity portal. Frappe has no
+      // guest-safe account probe, so we go straight to the password step.
+      document.getElementById('chip-email').textContent = email;
+      show('step-password');
+    });
+
+    // ---------- password step ----------
+    var passwordInput = document.getElementById('password');
+    var showPassword = false;
+
+    passwordInput.addEventListener('focus', function () {
+      if (!showPassword) setMood('covering');
+    });
+    passwordInput.addEventListener('blur', function () { setMood(null); });
+
+    document.getElementById('peek').addEventListener('click', function () {
+      showPassword = !showPassword;
+      passwordInput.type = showPassword ? 'text' : 'password';
+      document.getElementById('eye-open').style.display = showPassword ? 'none' : '';
+      document.getElementById('eye-closed').style.display = showPassword ? '' : 'none';
+      if (document.activeElement === passwordInput) setMood(showPassword ? null : 'covering');
+      passwordInput.focus();
+    });
+
+    document.getElementById('step-password').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = document.getElementById('email').value.trim();
+      var pwd = passwordInput.value;
+      if (!pwd.trim()) {
+        setError('error-password', 'Please enter your password');
+        return;
+      }
+      setError('error-password', '');
+      setLoading('btn-password', true);
+
+      // CITRON IDENTITY: replace with POST {IDENTITY_API}/api/auth/login and
+      // exchange the returned access token for a Frappe session. Until then,
+      // Frappe's own session login keeps everything (permissions, rate
+      // limits, 2FA hooks) working unchanged.
+      fetch('/api/method/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ usr: email, pwd: pwd }),
+      })
+        .then(function (res) {
+          if (res.ok) {
+            setMood('celebrating');
+            setTimeout(function () { window.location.href = REDIRECT_TO; }, 900);
+            return;
+          }
+          setLoading('btn-password', false);
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            var msg = 'Invalid email or password';
+            if (res.status === 429) msg = 'Too many attempts. Please wait a moment and try again.';
+            else if (data && data.message && /disabled/i.test(String(data.message))) msg = 'This account is disabled.';
+            setError('error-password', msg);
+          });
+        })
+        .catch(function () {
+          setLoading('btn-password', false);
+          setError('error-password', 'Could not reach the server. Check your connection.');
+        });
+    });
+
+    // ---------- forgot step ----------
+    document.getElementById('step-forgot').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = document.getElementById('forgot-email').value.trim();
+      if (!isValidEmail(email)) {
+        setError('error-forgot', 'Please enter a valid email address');
+        return;
+      }
+      setError('error-forgot', '');
+      setLoading('btn-forgot', true);
+
+      // CITRON IDENTITY: replace with POST {IDENTITY_API}/api/auth/password-reset.
+      fetch('/api/method/frappe.core.doctype.user.user.reset_password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ user: email }),
+      })
+        .finally(function () {
+          // Always show the neutral confirmation — never reveal whether the
+          // account exists (same behavior as Citron Identity).
+          setLoading('btn-forgot', false);
+          document.getElementById('sent-email').textContent = email;
+          show('step-forgot-sent');
+        });
+    });
+
+    // ---------- shared navigation ----------
+    document.querySelectorAll('[data-action="change-email"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        passwordInput.value = '';
+        show('step-email');
+      });
+    });
+
+    document.querySelectorAll('[data-action="forgot"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        document.getElementById('forgot-email').value =
+          document.getElementById('email').value.trim();
+        show('step-forgot');
+      });
+    });
+
+    mountMascot('step-email');
+  </script>
+</body>
+</html>

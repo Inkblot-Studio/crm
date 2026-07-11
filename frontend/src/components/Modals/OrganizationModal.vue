@@ -25,18 +25,35 @@
             />
           </div>
         </div>
-        <FieldLayout
-          v-if="tabs.data?.length"
+        <GuidedFieldFlow
+          v-if="guided && tabs.data?.length"
           :tabs="tabs.data"
           :data="organization.doc"
           doctype="CRM Organization"
+          :createLabel="__('Create organization')"
+          :creating="loading"
+          :error="error"
+          @complete="createOrganization"
+          @switchToForm="setGuided(false)"
         />
-        <ErrorMessage v-if="error" class="mt-8" :message="__(error)" />
+        <template v-else>
+          <FieldLayout
+            v-if="tabs.data?.length"
+            :tabs="tabs.data"
+            :data="organization.doc"
+            doctype="CRM Organization"
+          />
+          <ErrorMessage v-if="error" class="mt-8" :message="__(error)" />
+        </template>
       </div>
-      <div class="px-4 pt-4 pb-7 sm:px-6">
-        <div class="space-y-2">
+      <div v-if="!guided" class="px-4 pt-4 pb-7 sm:px-6">
+        <div class="flex items-center justify-between gap-2">
           <Button
-            class="w-full"
+            variant="ghost"
+            :label="__('Use guided flow')"
+            @click="setGuided(true)"
+          />
+          <Button
             variant="solid"
             :label="__('Create')"
             :loading="loading"
@@ -50,6 +67,8 @@
 
 <script setup>
 import FieldLayout from '@/components/FieldLayout/FieldLayout.vue'
+import GuidedFieldFlow from '@/components/GuidedFieldFlow.vue'
+import { useGuidedCreate } from '@/composables/useGuidedCreate'
 import EditIcon from '@/components/Icons/EditIcon.vue'
 import { usersStore } from '@/stores/users'
 import { isMobileView } from '@/composables/settings'
@@ -74,6 +93,7 @@ const { capture } = useTelemetry()
 
 const router = useRouter()
 const show = defineModel({ type: Boolean })
+const { guided, setGuided } = useGuidedCreate()
 
 const loading = ref(false)
 const error = ref(null)

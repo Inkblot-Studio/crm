@@ -1,0 +1,111 @@
+/**
+ * Citron polish layer — global micro-interactions and finishing touches.
+ * Everything here uses Citron DS motion tokens; keep it subtle and fast.
+ */
+
+/* Buttons: quick press feedback everywhere. transform-only so it never
+   fights color transitions declared by component classes. */
+button {
+  transition-property: transform;
+  transition-duration: var(--inkblot-duration-fast, 120ms);
+  transition-timing-function: var(--inkblot-easing-out, ease-out);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Cards that float up to meet the cursor (kanban cards, interactive tiles). */
+.citron-lift {
+  transition:
+    transform var(--inkblot-duration-fast, 120ms)
+      var(--inkblot-easing-out, ease-out),
+    box-shadow var(--inkblot-duration-fast, 120ms)
+      var(--inkblot-easing-out, ease-out);
+}
+
+.citron-lift:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--inkblot-shadow-md);
+}
+
+.citron-lift:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* Route-level page transition (used by App.vue router-view). */
+.citron-page-enter-active {
+  transition:
+    opacity var(--inkblot-duration-normal, 200ms)
+      var(--inkblot-easing-signature, ease-out),
+    transform var(--inkblot-duration-normal, 200ms)
+      var(--inkblot-easing-signature, ease-out);
+}
+
+.citron-page-enter-from {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.citron-page-leave-active {
+  transition: opacity var(--inkblot-duration-fast, 120ms)
+    var(--inkblot-easing-in, ease-in);
+}
+
+.citron-page-leave-to {
+  opacity: 0;
+}
+
+/* Tab strips become segmented pills — one consistent pattern everywhere
+   (record pages, settings, dialogs). Functionality untouched. */
+[role='tablist'] {
+  gap: 2px;
+  border-bottom-color: transparent !important;
+}
+
+[role='tab'] {
+  border-radius: var(--inkblot-radius-full);
+  transition:
+    background-color var(--inkblot-duration-fast, 120ms)
+      var(--inkblot-easing-default, ease),
+    color var(--inkblot-duration-fast, 120ms)
+      var(--inkblot-easing-default, ease);
+}
+
+[role='tab']:hover {
+  background: var(--inkblot-color-neutral-gray-100);
+}
+
+[role='tab'][aria-selected='true'] {
+  background: var(--inkblot-color-accent-citron-100);
+  color: var(--inkblot-color-neutral-gray-900);
+}
+
+/* Warm, quiet scrollbars. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--inkblot-color-neutral-gray-300) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--inkblot-color-neutral-gray-300);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button,
+  .citron-lift,
+  .citron-page-enter-active,
+  .citron-page-leave-active {
+    transition: none !important;
+  }
+}

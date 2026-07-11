@@ -1,0 +1,239 @@
+/**
+ * Citron token bridge — generated from @citron-systems/citron-ds tokens.
+ * Re-points frappe-ui semantic CSS variables (--surface-*, --ink-*,
+ * --outline-*, raw palettes, --radius-*, --elevation-*, focus rings) at
+ * Citron DS values so every existing component re-themes globally.
+ *
+ * Source of truth: node_modules/@citron-systems/citron-ds/dist/css/inkblot-variables.css
+ * Regenerate with: scratchpad gen-bridge.cjs (see repo docs/citron-redesign.md)
+ * Light mode only — Citron DS currently ships light tokens.
+ */
+
+:root {
+  /* -- raw palettes ------------------------------------------------ */
+  --gray-50: var(--inkblot-color-neutral-gray-50);
+  --gray-100: var(--inkblot-color-neutral-gray-100);
+  --gray-200: var(--inkblot-color-neutral-gray-200);
+  --gray-300: var(--inkblot-color-neutral-gray-300);
+  --gray-400: var(--inkblot-color-neutral-gray-400);
+  --gray-500: var(--inkblot-color-neutral-gray-500);
+  --gray-600: var(--inkblot-color-neutral-gray-600);
+  --gray-700: var(--inkblot-color-neutral-gray-700);
+  --gray-800: var(--inkblot-color-neutral-gray-800);
+  --gray-900: var(--inkblot-color-neutral-gray-900);
+  --gray-950: var(--inkblot-color-neutral-gray-950);
+  --amber-50: var(--inkblot-color-accent-citron-50);
+  --amber-100: var(--inkblot-color-accent-citron-100);
+  --amber-200: var(--inkblot-color-accent-citron-200);
+  --amber-300: var(--inkblot-color-accent-citron-300);
+  --amber-400: var(--inkblot-color-accent-citron-400);
+  --amber-500: var(--inkblot-color-accent-citron-500);
+  --amber-600: var(--inkblot-color-accent-citron-600);
+  --amber-700: var(--inkblot-color-accent-citron-700);
+  --amber-800: var(--inkblot-color-accent-citron-800);
+  --amber-900: var(--inkblot-color-accent-citron-900);
+  --amber-950: var(--inkblot-color-accent-citron-900);
+  --green-50: var(--inkblot-color-accent-leaf-50);
+  --green-100: var(--inkblot-color-accent-leaf-100);
+  --green-200: var(--inkblot-color-accent-leaf-200);
+  --green-300: var(--inkblot-color-accent-leaf-300);
+  --green-400: var(--inkblot-color-accent-leaf-400);
+  --green-500: var(--inkblot-color-accent-leaf-500);
+  --green-600: var(--inkblot-color-accent-leaf-600);
+  --green-700: var(--inkblot-color-accent-leaf-700);
+  --green-800: var(--inkblot-color-accent-leaf-800);
+  --green-900: var(--inkblot-color-accent-leaf-900);
+  --green-950: var(--inkblot-color-accent-leaf-900);
+  --red-400: var(--inkblot-color-semantic-error-light);
+  --red-500: var(--inkblot-color-semantic-error-main);
+  --red-600: var(--inkblot-color-semantic-error-dark);
+  --blue-400: var(--inkblot-color-semantic-info-light);
+  --blue-500: var(--inkblot-color-semantic-info-main);
+  --blue-600: var(--inkblot-color-semantic-info-dark);
+
+  /* -- semantic layers (surface / ink / outline) ------------------- */
+  --surface-base: var(--inkblot-color-neutral-white);
+  --surface-gray-1: var(--inkblot-color-neutral-gray-50);
+  --surface-gray-2: var(--inkblot-color-neutral-gray-100);
+  --surface-gray-3: var(--inkblot-color-neutral-gray-200);
+  --surface-gray-4: var(--inkblot-color-neutral-gray-300);
+  --surface-gray-5: var(--inkblot-color-neutral-gray-400);
+  --surface-gray-6: var(--inkblot-color-neutral-gray-500);
+  --surface-gray-7: var(--inkblot-color-neutral-gray-600);
+  --surface-gray-8: var(--inkblot-color-neutral-gray-700);
+  --surface-gray-9: var(--inkblot-color-neutral-gray-800);
+  --surface-gray-10: var(--inkblot-color-neutral-gray-900);
+  --surface-sidebar: var(--inkblot-color-neutral-gray-50);
+  --surface-elevation-1: var(--inkblot-color-neutral-white);
+  --surface-elevation-2: var(--inkblot-color-neutral-white);
+  --surface-elevation-3: var(--inkblot-color-neutral-white);
+  --surface-red-5: var(--inkblot-color-semantic-error-light);
+  --surface-red-6: var(--inkblot-color-semantic-error-main);
+  --surface-red-7: var(--inkblot-color-semantic-error-dark);
+  --surface-blue-5: var(--inkblot-color-semantic-info-light);
+  --surface-blue-6: var(--inkblot-color-semantic-info-main);
+  --surface-blue-7: var(--inkblot-color-semantic-info-dark);
+  --surface-green-1: var(--inkblot-color-accent-leaf-50);
+  --surface-green-2: var(--inkblot-color-accent-leaf-100);
+  --surface-green-3: var(--inkblot-color-accent-leaf-200);
+  --surface-green-4: var(--inkblot-color-accent-leaf-300);
+  --surface-green-5: var(--inkblot-color-accent-leaf-400);
+  --surface-green-6: var(--inkblot-color-accent-leaf-500);
+  --surface-green-7: var(--inkblot-color-accent-leaf-600);
+  --surface-green-8: var(--inkblot-color-accent-leaf-700);
+  --surface-green-9: var(--inkblot-color-accent-leaf-800);
+  --surface-green-10: var(--inkblot-color-accent-leaf-900);
+  --surface-amber-1: var(--inkblot-color-accent-citron-50);
+  --surface-amber-2: var(--inkblot-color-accent-citron-100);
+  --surface-amber-3: var(--inkblot-color-accent-citron-200);
+  --surface-amber-4: var(--inkblot-color-accent-citron-300);
+  --surface-amber-5: var(--inkblot-color-accent-citron-400);
+  --surface-amber-6: var(--inkblot-color-accent-citron-500);
+  --surface-amber-7: var(--inkblot-color-accent-citron-600);
+  --surface-amber-8: var(--inkblot-color-accent-citron-700);
+  --surface-amber-9: var(--inkblot-color-accent-citron-800);
+  --surface-amber-10: var(--inkblot-color-accent-citron-900);
+  --surface-alert-button-default: var(--inkblot-color-neutral-white);
+  --surface-alert-button-info: var(--inkblot-color-neutral-white);
+  --surface-alert-button-success: var(--inkblot-color-neutral-white);
+  --surface-alert-button-warning: var(--inkblot-color-neutral-white);
+  --surface-alert-button-error: var(--inkblot-color-neutral-white);
+  --surface-alpha-base: var(--inkblot-color-neutral-white);
+  --surface-alpha-sidebar: var(--inkblot-color-neutral-gray-50);
+  --surface-alpha-elevation-1: var(--inkblot-color-neutral-white);
+  --surface-alpha-elevation-2: var(--inkblot-color-neutral-white);
+  --surface-alpha-elevation-3: var(--inkblot-color-neutral-white);
+  --ink-base: var(--inkblot-color-neutral-white);
+  --ink-gray-1: var(--inkblot-color-neutral-gray-200);
+  --ink-gray-2: var(--inkblot-color-neutral-gray-300);
+  --ink-gray-3: var(--inkblot-color-neutral-gray-400);
+  --ink-gray-4: var(--inkblot-color-neutral-gray-500);
+  --ink-gray-5: var(--inkblot-color-neutral-gray-600);
+  --ink-gray-6: var(--inkblot-color-neutral-gray-700);
+  --ink-gray-7: var(--inkblot-color-neutral-gray-800);
+  --ink-gray-8: var(--inkblot-color-neutral-gray-900);
+  --ink-gray-9: var(--inkblot-color-neutral-gray-950);
+  --ink-red-1: var(--inkblot-color-neutral-white);
+  --ink-red-5: var(--inkblot-color-semantic-error-light);
+  --ink-red-6: var(--inkblot-color-semantic-error-main);
+  --ink-red-7: var(--inkblot-color-semantic-error-dark);
+  --ink-blue-1: var(--inkblot-color-neutral-white);
+  --ink-blue-5: var(--inkblot-color-semantic-info-light);
+  --ink-blue-6: var(--inkblot-color-semantic-info-main);
+  --ink-blue-7: var(--inkblot-color-semantic-info-dark);
+  --ink-green-1: var(--inkblot-color-neutral-white);
+  --ink-green-2: var(--inkblot-color-accent-leaf-100);
+  --ink-green-3: var(--inkblot-color-accent-leaf-200);
+  --ink-green-4: var(--inkblot-color-accent-leaf-300);
+  --ink-green-5: var(--inkblot-color-accent-leaf-400);
+  --ink-green-6: var(--inkblot-color-accent-leaf-500);
+  --ink-green-7: var(--inkblot-color-accent-leaf-600);
+  --ink-green-8: var(--inkblot-color-accent-leaf-700);
+  --ink-green-9: var(--inkblot-color-accent-leaf-800);
+  --ink-green-10: var(--inkblot-color-accent-leaf-900);
+  --ink-amber-1: var(--inkblot-color-neutral-white);
+  --ink-amber-2: var(--inkblot-color-accent-citron-100);
+  --ink-amber-3: var(--inkblot-color-accent-citron-200);
+  --ink-amber-4: var(--inkblot-color-accent-citron-300);
+  --ink-amber-5: var(--inkblot-color-accent-citron-400);
+  --ink-amber-6: var(--inkblot-color-accent-citron-500);
+  --ink-amber-7: var(--inkblot-color-accent-citron-600);
+  --ink-amber-8: var(--inkblot-color-accent-citron-700);
+  --ink-amber-9: var(--inkblot-color-accent-citron-800);
+  --ink-amber-10: var(--inkblot-color-accent-citron-900);
+  --ink-violet-1: var(--inkblot-color-neutral-white);
+  --ink-yellow-1: var(--inkblot-color-neutral-white);
+  --ink-orange-1: var(--inkblot-color-neutral-white);
+  --ink-teal-1: var(--inkblot-color-neutral-white);
+  --ink-cyan-1: var(--inkblot-color-neutral-white);
+  --ink-purple-1: var(--inkblot-color-neutral-white);
+  --ink-pink-1: var(--inkblot-color-neutral-white);
+  --ink-alert-button-default: var(--inkblot-color-neutral-gray-900);
+  --ink-alert-button-info: var(--inkblot-color-neutral-gray-900);
+  --ink-alert-button-success: var(--inkblot-color-neutral-gray-900);
+  --ink-alert-button-warning: var(--inkblot-color-neutral-gray-900);
+  --ink-alert-button-error: var(--inkblot-color-neutral-gray-900);
+  --ink-blue-link: var(--inkblot-color-semantic-info-main);
+  --outline-base: var(--inkblot-color-neutral-white);
+  --outline-gray-1: var(--inkblot-color-neutral-gray-200);
+  --outline-gray-2: var(--inkblot-color-neutral-gray-300);
+  --outline-gray-3: var(--inkblot-color-neutral-gray-400);
+  --outline-gray-4: var(--inkblot-color-neutral-gray-500);
+  --outline-gray-5: var(--inkblot-color-neutral-gray-600);
+  --outline-gray-6: var(--inkblot-color-neutral-gray-700);
+  --outline-gray-7: var(--inkblot-color-neutral-gray-800);
+  --outline-gray-8: var(--inkblot-color-neutral-gray-900);
+  --outline-gray-9: var(--inkblot-color-neutral-gray-950);
+  --outline-red-4: var(--inkblot-color-semantic-error-light);
+  --outline-red-5: var(--inkblot-color-semantic-error-main);
+  --outline-red-6: var(--inkblot-color-semantic-error-dark);
+  --outline-blue-4: var(--inkblot-color-semantic-info-light);
+  --outline-blue-5: var(--inkblot-color-semantic-info-main);
+  --outline-blue-6: var(--inkblot-color-semantic-info-dark);
+  --outline-green-1: var(--inkblot-color-accent-leaf-100);
+  --outline-green-2: var(--inkblot-color-accent-leaf-200);
+  --outline-green-3: var(--inkblot-color-accent-leaf-300);
+  --outline-green-4: var(--inkblot-color-accent-leaf-400);
+  --outline-green-5: var(--inkblot-color-accent-leaf-500);
+  --outline-green-6: var(--inkblot-color-accent-leaf-600);
+  --outline-green-7: var(--inkblot-color-accent-leaf-700);
+  --outline-green-8: var(--inkblot-color-accent-leaf-800);
+  --outline-green-9: var(--inkblot-color-accent-leaf-900);
+  --outline-green-10: var(--inkblot-color-accent-leaf-900);
+  --outline-amber-1: var(--inkblot-color-accent-citron-100);
+  --outline-amber-2: var(--inkblot-color-accent-citron-200);
+  --outline-amber-3: var(--inkblot-color-accent-citron-300);
+  --outline-amber-4: var(--inkblot-color-accent-citron-400);
+  --outline-amber-5: var(--inkblot-color-accent-citron-500);
+  --outline-amber-6: var(--inkblot-color-accent-citron-600);
+  --outline-amber-7: var(--inkblot-color-accent-citron-700);
+  --outline-amber-8: var(--inkblot-color-accent-citron-800);
+  --outline-amber-9: var(--inkblot-color-accent-citron-900);
+  --outline-amber-10: var(--inkblot-color-accent-citron-900);
+  --outline-elevation-1: var(--inkblot-color-neutral-gray-200);
+  --outline-elevation-2: var(--inkblot-color-neutral-gray-200);
+  --outline-alpha-base: var(--inkblot-color-neutral-white);
+
+  /* -- radius ------------------------------------------------------ */
+  --radius-1: var(--inkblot-radius-sm);
+  --radius-2: var(--inkblot-radius-sm);
+  --radius-3: var(--inkblot-radius-sm);
+  --radius-4: var(--inkblot-radius-md);
+  --radius-5: var(--inkblot-radius-md);
+  --radius-6: var(--inkblot-radius-lg);
+  --radius-7: var(--inkblot-radius-xl);
+  --radius-8: var(--inkblot-radius-2xl);
+  --radius-9: var(--inkblot-radius-full);
+  --radius-full: var(--inkblot-radius-full);
+  --radius-none: var(--inkblot-radius-none);
+  --radius-sm: var(--inkblot-radius-sm);
+  --radius-md: var(--inkblot-radius-md);
+  --radius-lg: var(--inkblot-radius-lg);
+  --radius-xl: var(--inkblot-radius-xl);
+  --radius-2xl: var(--inkblot-radius-2xl);
+
+  /* -- elevation ---------------------------------------------------- */
+  --elevation-sm: var(--inkblot-shadow-xs);
+  --elevation-base: var(--inkblot-shadow-sm);
+  --elevation-md: var(--inkblot-shadow-md);
+  --elevation-lg: var(--inkblot-shadow-lg);
+  --elevation-xl: var(--inkblot-shadow-xl);
+  --elevation-2xl: var(--inkblot-shadow-xl);
+
+  /* -- focus -------------------------------------------------------- */
+  --focus-default: 0px 0px 0px 2px rgba(201, 162, 39, 0.45);
+  --focus-outline-default: 2px solid rgba(201, 162, 39, 0.65);
+  --focus-amber: 0px 0px 0px 2px rgba(201, 162, 39, 0.45);
+  --focus-outline-amber: 2px solid rgba(201, 162, 39, 0.65);
+}
+
+/* Base voice: IBM Plex Sans body, warm ink text, citron selection. */
+html {
+  font-family: var(--inkblot-typography-font-family-sans);
+}
+
+::selection {
+  background: var(--inkblot-color-accent-citron-200);
+  color: var(--inkblot-color-neutral-gray-900);
+}
+

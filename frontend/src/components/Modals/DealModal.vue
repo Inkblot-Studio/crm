@@ -49,17 +49,35 @@
             v-if="hasOrganizationSections || hasContactSections"
             class="h-px w-full border-t my-5"
           />
-          <FieldLayout
-            v-if="tabs.data?.length"
+          <GuidedFieldFlow
+            v-if="guided && tabs.data?.length"
             :tabs="tabs.data"
             :data="deal.doc"
             doctype="CRM Deal"
+            :createLabel="__('Create deal')"
+            :creating="isDealCreating"
+            :error="error"
+            @complete="createDeal"
+            @switchToForm="setGuided(false)"
           />
-          <ErrorMessage v-if="error" class="mt-4" :message="__(error)" />
+          <template v-else>
+            <FieldLayout
+              v-if="tabs.data?.length"
+              :tabs="tabs.data"
+              :data="deal.doc"
+              doctype="CRM Deal"
+            />
+            <ErrorMessage v-if="error" class="mt-4" :message="__(error)" />
+          </template>
         </div>
       </div>
-      <div class="px-4 pb-7 pt-4 sm:px-6">
-        <div class="flex flex-row-reverse gap-2">
+      <div v-if="!guided" class="px-4 pb-7 pt-4 sm:px-6">
+        <div class="flex items-center justify-between gap-2">
+          <Button
+            variant="ghost"
+            :label="__('Use guided flow')"
+            @click="setGuided(true)"
+          />
           <Button
             variant="solid"
             :label="__('Create')"
@@ -75,6 +93,8 @@
 <script setup>
 import EditIcon from '@/components/Icons/EditIcon.vue'
 import FieldLayout from '@/components/FieldLayout/FieldLayout.vue'
+import GuidedFieldFlow from '@/components/GuidedFieldFlow.vue'
+import { useGuidedCreate } from '@/composables/useGuidedCreate'
 import { usersStore } from '@/stores/users'
 import { statusesStore } from '@/stores/statuses'
 import { isMobileView } from '@/composables/settings'
@@ -93,6 +113,7 @@ const { getUser, isManager } = usersStore()
 const { getDealStatus, statusOptions } = statusesStore()
 
 const show = defineModel({ type: Boolean })
+const { guided, setGuided } = useGuidedCreate()
 const router = useRouter()
 const error = ref(null)
 

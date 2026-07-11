@@ -1,0 +1,270 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --inkblot-breakpoint-sm: 640px; /** Small devices */
+  --inkblot-breakpoint-md: 768px; /** Tablets */
+  --inkblot-breakpoint-lg: 1024px; /** Laptops */
+  --inkblot-breakpoint-xl: 1280px; /** Desktops */
+  --inkblot-breakpoint-2xl: 1536px; /** Large screens */
+  --inkblot-color-neutral-white: #ffffff; /** Pure white, floating surfaces */
+  --inkblot-color-neutral-gray-50: #fafaf7; /** Warm off-white, body background */
+  --inkblot-color-neutral-gray-100: #f5f4f0; /** Warm surface, secondary bg */
+  --inkblot-color-neutral-gray-200: #eae9e3; /** Subtle warm border, dividers */
+  --inkblot-color-neutral-gray-300: #d4d3cb; /** Medium warm border */
+  --inkblot-color-neutral-gray-400: #93928a; /** Placeholder text, muted */
+  --inkblot-color-neutral-gray-500: #6b6a63; /** Secondary text */
+  --inkblot-color-neutral-gray-600: #4d4c47; /** Emphasized secondary */
+  --inkblot-color-neutral-gray-700: #3a3935; /** Strong text */
+  --inkblot-color-neutral-gray-800: #2d2c28; /** Deep warm dark */
+  --inkblot-color-neutral-gray-900: #1d1c19; /** Primary text — deep slate, never pure black */
+  --inkblot-color-neutral-gray-950: #12110e; /** Deep warm black — dark mode canvas */
+  --inkblot-color-neutral-ink: #0a0908; /** Citron ink — the deepest brand black. Cinematic backdrops, specimen pages, OLED surfaces. Warm to the last bit. */
+  --inkblot-color-accent-citron-50: #fdfbf3; /** Barely there citron wash */
+  --inkblot-color-accent-citron-100: #faf4dc; /** Soft cream tint */
+  --inkblot-color-accent-citron-200: #f5e7b4; /** Warm wheat */
+  --inkblot-color-accent-citron-300: #edd682; /** Light honey */
+  --inkblot-color-accent-citron-400: #e3c052; /** Citrus glow — the luminous dark-mode voice */
+  --inkblot-color-accent-citron-500: #c9a227; /** Citron primary — the brand tone, deepened for presence */
+  --inkblot-color-accent-citron-600: #a5841f; /** Deep citron, hover state */
+  --inkblot-color-accent-citron-700: #806618; /** Rich amber */
+  --inkblot-color-accent-citron-800: #5c4a12; /** Dark citron */
+  --inkblot-color-accent-citron-900: #3b300c; /** Deepest citron */
+  --inkblot-color-accent-leaf-50: #f4f8f2; /** Barely there leaf wash */
+  --inkblot-color-accent-leaf-100: #e4efe0; /** Soft leaf tint */
+  --inkblot-color-accent-leaf-200: #c3dcba; /** Light foliage */
+  --inkblot-color-accent-leaf-300: #96c188; /** Fresh leaf */
+  --inkblot-color-accent-leaf-400: #67a257; /** Vivid botanical */
+  --inkblot-color-accent-leaf-500: #478239; /** Leaf primary — deep botanical green */
+  --inkblot-color-accent-leaf-600: #3a6b2f; /** Deep leaf, hover state */
+  --inkblot-color-accent-leaf-700: #2f5427; /** Forest depth */
+  --inkblot-color-accent-leaf-800: #233d1e; /** Dark canopy */
+  --inkblot-color-accent-leaf-900: #172913; /** Deepest leaf */
+  --inkblot-color-semantic-success-light: #3d9e50; /** Warm success green */
+  --inkblot-color-semantic-success-main: #358c46; /** Primary success */
+  --inkblot-color-semantic-success-dark: #2a7538; /** Success hover */
+  --inkblot-color-semantic-warning-light: #e0a020; /** Warm amber warning */
+  --inkblot-color-semantic-warning-main: #c48c1a; /** Primary warning — distinct from citron by saturation */
+  --inkblot-color-semantic-warning-dark: #a67515; /** Warning hover */
+  --inkblot-color-semantic-error-light: #d14940; /** Warm red */
+  --inkblot-color-semantic-error-main: #be3e35; /** Primary error */
+  --inkblot-color-semantic-error-dark: #a3352d; /** Error hover */
+  --inkblot-color-semantic-info-light: #6ba3c2; /** Muted warm blue */
+  --inkblot-color-semantic-info-main: #5790ad; /** Primary info — desaturated, warm */
+  --inkblot-color-semantic-info-dark: #497a94; /** Info hover */
+  --inkblot-color-devtools-dominant: #2563eb; /** Dominant blue — headers, key metrics, active nav in dev shell */
+  --inkblot-color-devtools-support: #60a5fa; /** Support blue — secondary emphasis, icons, dividers tint, hover text */
+  --inkblot-color-devtools-accent: #10b981; /** Emerald accent — success in dev context, pass states, OK badges (not product brand citron) */
+  --inkblot-color-devtools-primary: #2563eb; /** Primary action — same as dominant; use semantic interactive.primary in components */
+  --inkblot-color-devtools-primary-hover: #60a5fa; /** Primary hover — lighter blue lift on dark ground */
+  --inkblot-color-devtools-background: #020617; /** App background — near-slate-950, OLED-friendly */
+  --inkblot-color-devtools-surface: #0b1220; /** Raised panels, cards, drawers — one step above background */
+  --inkblot-color-devtools-text-primary: #f8fafc; /** Primary text on dev dark UI */
+  --inkblot-color-devtools-text-muted: #cbd5e1; /** Secondary labels, timestamps, hints */
+  --inkblot-color-devtools-border: #1e293b; /** Default borders and hairlines — slate-800 */
+  --inkblot-color-devtools-focus: #60a5fa; /** Focus ring on dev controls — matches support for visibility */
+  --inkblot-duration-instant: 0ms; /** No animation */
+  --inkblot-duration-fast: 120ms; /** Micro-interactions, hovers — fast enough to feel physical */
+  --inkblot-duration-normal: 200ms; /** Standard transitions */
+  --inkblot-duration-slow: 320ms; /** Complex transitions, enter/exit */
+  --inkblot-duration-slower: 500ms; /** Page-level transitions, long reveals */
+  --inkblot-duration-cinematic: 800ms; /** Brand-moment reveals — hero entrances, specimen choreography. Never for interaction feedback. */
+  --inkblot-duration-stagger: 40ms; /** Per-item offset for staggered list/grid entrances. Cap total stagger at 400ms. */
+  --inkblot-easing-default: cubic-bezier(0.25, 0.1, 0.25, 1); /** Standard ease — natural deceleration */
+  --inkblot-easing-in: cubic-bezier(0.32, 0, 0.67, 0); /** Ease in — for exits, things leaving */
+  --inkblot-easing-out: cubic-bezier(0.33, 1, 0.68, 1); /** Ease out — for entrances, things arriving */
+  --inkblot-easing-in-out: cubic-bezier(0.65, 0, 0.35, 1); /** Ease in-out — for position changes, transforms */
+  --inkblot-easing-expressive: cubic-bezier(0.22, 1, 0.36, 1); /** Expressive ease-out — smooth, confident arrival. Replaces bounce. */
+  --inkblot-easing-signature: cubic-bezier(0.16, 1, 0.3, 1); /** The Citron curve — near-instant attack, very long decay. Reveals, hero entrances, anything that should feel like light blooming. The brand's motion fingerprint. */
+  --inkblot-easing-swift: cubic-bezier(0.55, 0, 0.1, 1); /** Swift in-out — assertive position changes, shared-element moves, tab indicator slides */
+  --inkblot-spring-responsive: stiffness: 420, damping: 34, mass: 1; /** Interaction feedback — toggles, drags, snappy and critically damped */
+  --inkblot-spring-gentle: stiffness: 180, damping: 26, mass: 1; /** Panels, sheets, popovers — settled and calm */
+  --inkblot-spring-bloom: stiffness: 120, damping: 20, mass: 1.2; /** Brand moments — mascot, hero elements. The only spring allowed a hint of overshoot. */
+  --inkblot-grid-columns-mobile: 4rem; /** 4-column grid for < 640px */
+  --inkblot-grid-columns-tablet: 8rem; /** 8-column grid for 640–1023px */
+  --inkblot-grid-columns-desktop: 12rem; /** 12-column grid for 1024–1535px */
+  --inkblot-grid-columns-wide: 16rem; /** 16-column grid for 1536px+ */
+  --inkblot-grid-columns-max: 24rem; /** 24-column grid for complex dashboards */
+  --inkblot-grid-gutter-sm: 0.5rem; /** 8px - compact mobile gutter */
+  --inkblot-grid-gutter-md: 1rem; /** 16px - standard gutter */
+  --inkblot-grid-gutter-lg: 1.5rem; /** 24px - spacious desktop gutter */
+  --inkblot-grid-gutter-xl: 2rem; /** 32px - wide layout gutter */
+  --inkblot-grid-margin-mobile: 1rem; /** 16px page margin on mobile */
+  --inkblot-grid-margin-tablet: 2rem; /** 32px page margin on tablet */
+  --inkblot-grid-margin-desktop: 4rem; /** 64px page margin on desktop */
+  --inkblot-grid-margin-wide: auto; /** Auto-center on wide screens */
+  --inkblot-grid-max-width-content: 768px; /** Max width for readable content */
+  --inkblot-grid-max-width-container: 1200px; /** Max width for standard layouts */
+  --inkblot-grid-max-width-wide: 1440px; /** Max width for wide layouts */
+  --inkblot-grid-max-width-full: 1920px; /** Max width for full-bleed */
+  --inkblot-radius-none: 0; /** No rounding */
+  --inkblot-radius-sm: 6px; /** Subtle rounding, chips */
+  --inkblot-radius-md: 10px; /** Inputs, small cards */
+  --inkblot-radius-lg: 14px; /** Buttons, interactive elements */
+  --inkblot-radius-xl: 18px; /** Cards, modals */
+  --inkblot-radius-2xl: 24px; /** Large surfaces, hero cards */
+  --inkblot-radius-full: 9999px; /** Pills, avatars, toggles */
+  --inkblot-border-width-none: 0; /** No border */
+  --inkblot-border-width-thin: 1px; /** Subtle dividers, the default */
+  --inkblot-border-width-medium: 2px; /** Focus rings */
+  --inkblot-border-width-thick: 3px; /** Strong emphasis, rarely used */
+  --inkblot-shadow-none: none; /** No shadow */
+  --inkblot-shadow-xs: 0 1px 2px 0 rgba(29, 28, 25, 0.04); /** Barely there lift */
+  --inkblot-shadow-sm: 0 2px 8px -1px rgba(29, 28, 25, 0.06), 0 1px 3px -1px rgba(29, 28, 25, 0.04); /** Cards — soft, warm, diffused */
+  --inkblot-shadow-md: 0 4px 16px -2px rgba(29, 28, 25, 0.08), 0 2px 6px -2px rgba(29, 28, 25, 0.04); /** Elevated cards, dropdowns */
+  --inkblot-shadow-lg: 0 8px 24px -4px rgba(29, 28, 25, 0.10), 0 4px 10px -4px rgba(29, 28, 25, 0.04); /** Modals, popovers */
+  --inkblot-shadow-xl: 0 16px 40px -8px rgba(29, 28, 25, 0.12), 0 8px 16px -8px rgba(29, 28, 25, 0.04); /** Maximum elevation — ambient, not harsh */
+  --inkblot-shadow-glow: 0 0 0 1px rgba(201, 162, 39, 0.25), 0 0 24px -4px rgba(201, 162, 39, 0.35); /** Citron glow — luminous emphasis on dark surfaces. Primary CTAs, focus moments, brand highlights. Use on ink backgrounds only. */
+  --inkblot-shadow-glow-subtle: 0 0 16px -6px rgba(201, 162, 39, 0.25); /** Faint citron halo — hover states on dark surfaces */
+  --inkblot-opacity-disabled: 0.4; /** Disabled elements */
+  --inkblot-opacity-overlay: 0.45; /** Modal backdrops — not too heavy */
+  --inkblot-opacity-subtle: 0.6; /** Secondary content */
+  --inkblot-opacity-default: 1; /** Full opacity */
+  --inkblot-spacing-0: 0; /** No spacing */
+  --inkblot-spacing-1: 0.25rem; /** 4px */
+  --inkblot-spacing-2: 0.5rem; /** 8px */
+  --inkblot-spacing-3: 0.75rem; /** 12px */
+  --inkblot-spacing-4: 1rem; /** 16px */
+  --inkblot-spacing-5: 1.25rem; /** 20px */
+  --inkblot-spacing-6: 1.5rem; /** 24px */
+  --inkblot-spacing-8: 2rem; /** 32px */
+  --inkblot-spacing-10: 2.5rem; /** 40px */
+  --inkblot-spacing-12: 3rem; /** 48px */
+  --inkblot-spacing-16: 4rem; /** 64px */
+  --inkblot-spacing-20: 5rem; /** 80px */
+  --inkblot-spacing-24: 6rem; /** 96px */
+  --inkblot-spacing-32: 8rem; /** 128px */
+  --inkblot-size-icon-xs: 1rem; /** 16px icon */
+  --inkblot-size-icon-sm: 1.25rem; /** 20px icon */
+  --inkblot-size-icon-md: 1.5rem; /** 24px icon */
+  --inkblot-size-icon-lg: 2rem; /** 32px icon */
+  --inkblot-size-icon-xl: 2.5rem; /** 40px icon */
+  --inkblot-size-touch-target-min: 44px; /** Minimum touch target (WCAG) */
+  --inkblot-size-touch-target-comfortable: 48px; /** Comfortable touch target */
+  --inkblot-typography-font-family-sans: 'IBM Plex Sans', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /** UI and body — IBM Plex Sans, rational and warm. Self-hosted variable font (wght 100–700) */
+  --inkblot-typography-font-family-mono: 'IBM Plex Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace; /** Code, data, tabular numerals — IBM Plex Mono, same superfamily as body */
+  --inkblot-typography-font-family-display: 'Space Grotesk', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /** Headlines and brand moments — Space Grotesk, engineered geometry with personality. Self-hosted variable font (wght 300–700) */
+  --inkblot-typography-font-size-xs: 0.75rem; /** 12px — captions, meta, labels */
+  --inkblot-typography-font-size-sm: 0.8125rem; /** 13px — secondary text */
+  --inkblot-typography-font-size-base: 0.9375rem; /** 15px — body text, refined from 16 */
+  --inkblot-typography-font-size-md: 1.0625rem; /** 17px — emphasized body */
+  --inkblot-typography-font-size-lg: 1.25rem; /** 20px — card titles, subheadings */
+  --inkblot-typography-font-size-xl: 1.5rem; /** 24px — section titles */
+  --inkblot-typography-font-size-2xl: 1.875rem; /** 30px — page titles */
+  --inkblot-typography-font-size-3xl: 2.5rem; /** 40px — display entry point, Space Grotesk territory */
+  --inkblot-typography-font-size-4xl: 3.25rem; /** 52px — hero headlines */
+  --inkblot-typography-font-size-5xl: 4.25rem; /** 68px — statement display */
+  --inkblot-typography-font-size-6xl: 5.5rem; /** 88px — maximum display, specimen and brand moments only */
+  --inkblot-typography-font-weight-light: 300; /** Display-only — large Space Grotesk statements */
+  --inkblot-typography-font-weight-regular: 400; /** Body text */
+  --inkblot-typography-font-weight-medium: 500; /** Emphasis, labels, card titles */
+  --inkblot-typography-font-weight-semibold: 600; /** Headings, buttons */
+  --inkblot-typography-font-weight-bold: 700; /** Strong emphasis, display headlines */
+  --inkblot-typography-line-height-display: 1.05; /** Statement display — tight, sculptural */
+  --inkblot-typography-line-height-tight: 1.15; /** Headlines */
+  --inkblot-typography-line-height-snug: 1.375; /** Subheadings */
+  --inkblot-typography-line-height-normal: 1.5; /** Body text */
+  --inkblot-typography-line-height-relaxed: 1.65; /** Long-form, generous breathing room */
+  --inkblot-typography-line-height-loose: 1.8; /** Very spacious */
+  --inkblot-typography-letter-spacing-tighter: -0.03em; /** Statement display — Space Grotesk needs less negative tracking than Inter did */
+  --inkblot-typography-letter-spacing-tight: -0.015em; /** Headings */
+  --inkblot-typography-letter-spacing-normal: 0; /** Body */
+  --inkblot-typography-letter-spacing-wide: 0.02em; /** Labels */
+  --inkblot-typography-letter-spacing-wider: 0.08em; /** Uppercase meta, eyebrow labels — the Citron editorial signature */
+  --inkblot-typography-font-features-display: 'ss01' 1, 'ss03' 1; /** Space Grotesk alternates — single-storey a, simplified forms at display sizes */
+  --inkblot-typography-font-features-numeric: 'tnum' 1, 'zero' 1; /** Tabular figures + slashed zero for data, tables, and metrics */
+  --inkblot-typography-font-features-default: normal; /** Body text — default features */
+  --inkblot-z-index-hide: -1; /** Hidden below base layer */
+  --inkblot-z-index-base: 0; /** Default document flow */
+  --inkblot-z-index-raised: 1; /** Slightly above base (cards on hover) */
+  --inkblot-z-index-dropdown: 10; /** Dropdowns, select menus */
+  --inkblot-z-index-sticky: 20; /** Sticky headers, nav bars */
+  --inkblot-z-index-overlay: 30; /** Backdrop overlays */
+  --inkblot-z-index-modal: 40; /** Modals, dialogs, sheets */
+  --inkblot-z-index-popover: 50; /** Popovers, tooltips */
+  --inkblot-z-index-toast: 60; /** Toast notifications */
+  --inkblot-z-index-max: 9999; /** Emergency override (avoid) */
+  --inkblot-dark-color-background-primary: #0a0908; /** Citron ink — deepest warm black, OLED-true canvas */
+  --inkblot-dark-color-background-secondary: #161512; /** Elevated warm surface — one stop of light above ink */
+  --inkblot-dark-color-background-tertiary: #221f1a; /** Grouped content, inset — two stops */
+  --inkblot-dark-color-background-inverse: #fafaf7; /** Inverted to warm off-white */
+  --inkblot-dark-color-background-canvas: #0a0908; /** Cinematic backdrop — same as primary in dark mode */
+  --inkblot-dark-color-text-primary: #f5f2ea; /** Warm parchment white — softer than pure white on ink */
+  --inkblot-dark-color-text-secondary: #9a968a; /** Warm muted text */
+  --inkblot-dark-color-text-tertiary: #6b675c; /** Placeholder, hints */
+  --inkblot-dark-color-text-inverse: #1d1c19; /** Dark text on light */
+  --inkblot-dark-color-text-link: #e3c052; /** Citron 400 — the luminous voice on ink */
+  --inkblot-dark-color-text-link-hover: #edd682; /** Citron 300 — brighter on hover */
+  --inkblot-dark-color-border-default: #2b2822; /** Warm subtle border — reads as shadow edge, not line */
+  --inkblot-dark-color-border-strong: #413d33; /** Emphasized warm border */
+  --inkblot-dark-color-border-focus: #e3c052; /** Focus ring — luminous citron */
+  --inkblot-dark-color-interactive-primary: #e3c052; /** Citron glow — the light source of the dark UI */
+  --inkblot-dark-color-interactive-primary-hover: #edd682; /** Brighter glow on hover */
+  --inkblot-dark-color-interactive-primary-active: #c9a227; /** Citron 500 — anchors on press */
+  --inkblot-dark-color-interactive-secondary: #221f1a; /** Warm dark secondary */
+  --inkblot-dark-color-interactive-secondary-hover: #2b2822; /** Warm dark hover */
+  --inkblot-dark-color-accent-default: #e3c052; /** Citron glow on ink */
+  --inkblot-dark-color-accent-emphasis: #edd682; /** Brighter citron */
+  --inkblot-dark-color-accent-subtle: #2b2510; /** Citron-tinted dark surface */
+  --inkblot-dark-color-accent-leaf: #67a257; /** Leaf 400 — botanical counterpoint on ink */
+  --inkblot-dark-color-accent-leaf-subtle: #18220f; /** Leaf-tinted dark surface */
+  --inkblot-dark-color-status-success: #4cb864; /** Bright warm green on ink */
+  --inkblot-dark-color-status-warning: #e0a020; /** Warm amber on ink */
+  --inkblot-dark-color-status-error: #e05a52; /** Warm red on ink */
+  --inkblot-dark-color-status-info: #7ab8d6; /** Soft warm blue on ink */
+  --inkblot-semantic-devtools-color-background-app: var(--inkblot-color-devtools-background); /** Full dev shell background */
+  --inkblot-semantic-devtools-color-background-surface: var(--inkblot-color-devtools-surface); /** Panels, modals, dropdowns */
+  --inkblot-semantic-devtools-color-background-surface-elevated: var(--inkblot-color-devtools-surface); /** Optional second elevation — same token until a lighter step is needed */
+  --inkblot-semantic-devtools-color-text-primary: var(--inkblot-color-devtools-text-primary); /** Body and titles in dev UI */
+  --inkblot-semantic-devtools-color-text-muted: var(--inkblot-color-devtools-text-muted); /** Meta, captions, disabled-adjacent copy */
+  --inkblot-semantic-devtools-color-text-on-primary: var(--inkblot-color-devtools-text-primary); /** Text on primary/dominant buttons */
+  --inkblot-semantic-devtools-color-border-default: var(--inkblot-color-devtools-border); /** Dividers and field outlines */
+  --inkblot-semantic-devtools-color-border-strong: var(--inkblot-color-devtools-support); /** Drag handles, resize accents — use at low opacity if needed */
+  --inkblot-semantic-devtools-color-accent-brand: var(--inkblot-color-devtools-dominant); /** Dev chrome brand strip — blue, not citron */
+  --inkblot-semantic-devtools-color-accent-positive: var(--inkblot-color-devtools-accent); /** Build passed, tests green, healthy status */
+  --inkblot-semantic-devtools-color-interactive-primary: var(--inkblot-color-devtools-primary); /** Primary buttons, submit, run */
+  --inkblot-semantic-devtools-color-interactive-primary-hover: var(--inkblot-color-devtools-primary-hover); /** Hover state for primary */
+  --inkblot-semantic-devtools-color-interactive-ghost: var(--inkblot-color-devtools-text-muted); /** Low-emphasis controls — pair with transparent or surface bg */
+  --inkblot-semantic-devtools-color-interactive-focus: var(--inkblot-color-devtools-focus); /** Focus ring color */
+  --inkblot-semantic-color-background-primary: var(--inkblot-color-neutral-gray-50); /** Body background — warm off-white with barely perceptible beige */
+  --inkblot-semantic-color-background-secondary: var(--inkblot-color-neutral-white); /** Elevated surfaces — clean white floating above base */
+  --inkblot-semantic-color-background-tertiary: var(--inkblot-color-neutral-gray-100); /** Grouped content, inset areas */
+  --inkblot-semantic-color-background-inverse: var(--inkblot-color-neutral-gray-900); /** Inverted surfaces */
+  --inkblot-semantic-color-background-canvas: var(--inkblot-color-neutral-ink); /** Cinematic backdrop — hero sections, specimen pages, brand moments */
+  --inkblot-semantic-color-text-primary: var(--inkblot-color-neutral-gray-900); /** Primary text — deep warm slate, never pure black */
+  --inkblot-semantic-color-text-secondary: var(--inkblot-color-neutral-gray-500); /** Secondary text */
+  --inkblot-semantic-color-text-tertiary: var(--inkblot-color-neutral-gray-400); /** Placeholder, hints, captions */
+  --inkblot-semantic-color-text-inverse: var(--inkblot-color-neutral-white); /** Text on dark surfaces */
+  --inkblot-semantic-color-text-link: var(--inkblot-color-accent-citron-600); /** Links — deep citron for readability */
+  --inkblot-semantic-color-text-link-hover: var(--inkblot-color-accent-citron-700); /** Link hover */
+  --inkblot-semantic-color-border-default: var(--inkblot-color-neutral-gray-200); /** Subtle warm dividers */
+  --inkblot-semantic-color-border-strong: var(--inkblot-color-neutral-gray-300); /** Emphasized borders */
+  --inkblot-semantic-color-border-focus: var(--inkblot-color-accent-citron-500); /** Focus ring — citron accent */
+  --inkblot-semantic-color-interactive-primary: var(--inkblot-color-accent-citron-500); /** Primary CTA — confident citron */
+  --inkblot-semantic-color-interactive-primary-hover: var(--inkblot-color-accent-citron-600); /** Primary hover — deeper, subtle shift */
+  --inkblot-semantic-color-interactive-primary-active: var(--inkblot-color-accent-citron-700); /** Primary pressed */
+  --inkblot-semantic-color-interactive-secondary: var(--inkblot-color-neutral-gray-100); /** Secondary surfaces with subtle depth */
+  --inkblot-semantic-color-interactive-secondary-hover: var(--inkblot-color-neutral-gray-200); /** Secondary hover */
+  --inkblot-semantic-color-accent-default: var(--inkblot-color-accent-citron-500); /** The citron signature */
+  --inkblot-semantic-color-accent-emphasis: var(--inkblot-color-accent-citron-600); /** Citron with more weight */
+  --inkblot-semantic-color-accent-subtle: var(--inkblot-color-accent-citron-100); /** Citron wash — tinted surfaces, highlights */
+  --inkblot-semantic-color-accent-leaf: var(--inkblot-color-accent-leaf-500); /** Botanical counterpoint — data viz, secondary highlights */
+  --inkblot-semantic-color-accent-leaf-subtle: var(--inkblot-color-accent-leaf-100); /** Leaf wash — tinted surfaces */
+  --inkblot-semantic-color-status-success: var(--inkblot-color-semantic-success-main); /** Success state */
+  --inkblot-semantic-color-status-warning: var(--inkblot-color-semantic-warning-main); /** Warning state */
+  --inkblot-semantic-color-status-error: var(--inkblot-color-semantic-error-main); /** Error state */
+  --inkblot-semantic-color-status-info: var(--inkblot-color-semantic-info-main); /** Info state */
+  --inkblot-semantic-typography-display-statement: var(--inkblot-typography-font-weight-light) var(--inkblot-typography-font-size-6xl)/var(--inkblot-typography-line-height-display) var(--inkblot-typography-font-family-display); /** Maximum display — brand moments, specimen pages. Space Grotesk light, sculptural. */
+  --inkblot-semantic-typography-display-hero: var(--inkblot-typography-font-weight-medium) var(--inkblot-typography-font-size-4xl)/var(--inkblot-typography-line-height-display) var(--inkblot-typography-font-family-display); /** Hero headlines — landing pages, marketing surfaces */
+  --inkblot-semantic-typography-display-eyebrow: var(--inkblot-typography-font-weight-medium) var(--inkblot-typography-font-size-xs)/var(--inkblot-typography-line-height-normal) var(--inkblot-typography-font-family-mono); /** Uppercase mono eyebrow above headlines — the Citron editorial signature. Pair with citron accent color. */
+  --inkblot-semantic-typography-heading-1: var(--inkblot-typography-font-weight-semibold) var(--inkblot-typography-font-size-3xl)/var(--inkblot-typography-line-height-tight) var(--inkblot-typography-font-family-display); /** Page title — Space Grotesk, composed confidence */
+  --inkblot-semantic-typography-heading-2: var(--inkblot-typography-font-weight-semibold) var(--inkblot-typography-font-size-2xl)/var(--inkblot-typography-line-height-tight) var(--inkblot-typography-font-family-display); /** Section title */
+  --inkblot-semantic-typography-heading-3: var(--inkblot-typography-font-weight-medium) var(--inkblot-typography-font-size-xl)/var(--inkblot-typography-line-height-snug) var(--inkblot-typography-font-family-display); /** Subsection title — display face carries down to h3 */
+  --inkblot-semantic-typography-heading-4: var(--inkblot-typography-font-weight-medium) var(--inkblot-typography-font-size-lg)/var(--inkblot-typography-line-height-snug) var(--inkblot-typography-font-family-sans); /** Card title — hands off to the body face */
+  --inkblot-semantic-typography-body-default: var(--inkblot-typography-font-weight-regular) var(--inkblot-typography-font-size-base)/var(--inkblot-typography-line-height-normal) var(--inkblot-typography-font-family-sans); /** Body text — IBM Plex Sans */
+  --inkblot-semantic-typography-body-small: var(--inkblot-typography-font-weight-regular) var(--inkblot-typography-font-size-sm)/var(--inkblot-typography-line-height-normal) var(--inkblot-typography-font-family-sans); /** Small body, captions */
+  --inkblot-semantic-typography-body-large: var(--inkblot-typography-font-weight-regular) var(--inkblot-typography-font-size-md)/var(--inkblot-typography-line-height-relaxed) var(--inkblot-typography-font-family-sans); /** Emphasized body, lede paragraphs */
+  --inkblot-semantic-typography-label-default: var(--inkblot-typography-font-weight-medium) var(--inkblot-typography-font-size-xs)/var(--inkblot-typography-line-height-normal) var(--inkblot-typography-font-family-sans); /** Form labels, badges */
+  --inkblot-semantic-typography-code-default: var(--inkblot-typography-font-weight-regular) var(--inkblot-typography-font-size-sm)/var(--inkblot-typography-line-height-normal) var(--inkblot-typography-font-family-mono); /** Inline code, code blocks — IBM Plex Mono */
+}

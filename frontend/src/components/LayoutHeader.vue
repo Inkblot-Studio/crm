@@ -7,14 +7,17 @@
         <div class="flex items-center gap-2">
           <slot name="left-header" />
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 pr-2">
           <slot name="right-header" class="flex items-center gap-2" />
+          <!-- consistent AI assistant entry point across every module -->
+          <AIAssistantTrigger v-if="$route.name !== 'Home'" />
         </div>
       </header>
     </slot>
   </Teleport>
 </template>
 <script setup>
+import AIAssistantTrigger from '@/components/AIChat/AIAssistantTrigger.vue'
 import { ref, nextTick } from 'vue'
 
 const showHeader = ref(false)

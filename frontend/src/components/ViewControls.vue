@@ -129,23 +129,41 @@
       <Button icon="lucide-x" @click="customizeQuickFilter = false" />
     </div>
   </div>
-  <div v-else class="flex items-center justify-between gap-2 px-5 py-4">
-    <FadedScrollableDiv
-      class="flex flex-1 items-center overflow-x-auto -ml-1 h-9"
-      orientation="horizontal"
-    >
-      <div
-        v-for="filter in quickFilterList"
-        :key="filter.fieldname"
-        class="m-1 min-w-36"
-      >
+  <div v-else class="flex items-center justify-between gap-2 px-5 py-3.5">
+    <!-- primary quick filter stays inline as search; the rest are one click
+         away — progressive disclosure instead of a dense filter toolbar -->
+    <div class="flex min-w-0 flex-1 items-center gap-2">
+      <div v-if="quickFilterList.length" class="w-56 shrink-0">
         <QuickFilterField
-          :filter="filter"
+          :filter="quickFilterList[0]"
           @applyQuickFilter="(f, v) => applyQuickFilter(f, v)"
         />
       </div>
-    </FadedScrollableDiv>
-    <div class="-ml-2 h-[70%] border-l" />
+      <Button
+        v-if="quickFilterList.length > 1"
+        variant="ghost"
+        :tooltip="__('More quick filters')"
+        :label="moreFiltersOpen ? __('Less') : __('More')"
+        iconLeft="sliders"
+        @click="moreFiltersOpen = !moreFiltersOpen"
+      />
+      <FadedScrollableDiv
+        v-if="moreFiltersOpen"
+        class="flex min-w-0 flex-1 items-center overflow-x-auto h-9"
+        orientation="horizontal"
+      >
+        <div
+          v-for="filter in quickFilterList.slice(1)"
+          :key="filter.fieldname"
+          class="m-1 min-w-36"
+        >
+          <QuickFilterField
+            :filter="filter"
+            @applyQuickFilter="(f, v) => applyQuickFilter(f, v)"
+          />
+        </div>
+      </FadedScrollableDiv>
+    </div>
     <div class="flex items-center gap-2">
       <div
         v-if="viewUpdated && route.query.view && (!view.public || isManager())"
@@ -155,12 +173,6 @@
         <Button :label="__('Save Changes')" @click="saveView" />
       </div>
       <div class="flex items-center gap-2">
-        <Button
-          :tooltip="__('Refresh')"
-          :icon="RefreshIcon"
-          :loading="isLoading"
-          @click="reload()"
-        />
         <GroupBy
           v-if="route.params.viewType === 'group_by'"
           v-model="list"
@@ -192,13 +204,17 @@
           @update="(isDefault) => updateColumns(isDefault)"
         />
         <Dropdown
-          v-if="route.params.viewType !== 'kanban' || isManager()"
           placement="right"
           :options="[
             {
               group: __('Options'),
               hideLabel: true,
               items: [
+                {
+                  label: __('Refresh'),
+                  icon: () => h(RefreshIcon, { class: 'h-4 w-4' }),
+                  onClick: () => reload(),
+                },
                 {
                   label: __('Import'),
                   icon: () => h(ImportIcon, { class: 'h-4 w-4' }),
@@ -552,6 +568,7 @@ function reload() {
 }
 
 const showExportDialog = ref(false)
+const moreFiltersOpen = ref(false)
 const export_type = ref('Excel')
 const export_all = ref(false)
 const selectedRows = ref([])

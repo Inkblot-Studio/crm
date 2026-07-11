@@ -1,4 +1,12 @@
+@import '@citron-systems/citron-ds/fonts';
 @import 'frappe-ui/style.css';
+/* Citron DS tokens + component layer, then the bridge that re-points
+   frappe-ui's CSS variables at them. Order matters: the bridge must come
+   after frappe-ui/style.css so its :root overrides win the cascade. */
+@import '@citron-systems/citron-ds/css';
+@import '@citron-systems/citron-ds/components';
+@import './theme/citron-bridge.css';
+@import './theme/citron-polish.css';
 
 @layer components {
   .prose-f {

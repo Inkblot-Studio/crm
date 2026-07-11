@@ -1,13 +1,13 @@
 <template>
   <div class="relative flex h-full w-full justify-center">
     <div
-      class="absolute left-1/2 flex -translate-x-1/2 flex-col items-center gap-3"
+      class="citron-empty-state absolute left-1/2 flex -translate-x-1/2 flex-col items-center gap-4"
       :class="widthClass"
       :style="{ top: top }"
     >
-      <Icon :icon="icon" class="size-7.5 text-ink-gray-5" />
+      <CitronMascot :size="44" state="blink" />
       <div class="flex flex-col items-center gap-1">
-        <span class="text-lg-medium text-ink-gray-8">
+        <span class="font-display text-lg-medium text-ink-gray-8">
           {{ computedTitle }}
         </span>
         <span class="text-center text-p-base text-ink-gray-6">
@@ -18,13 +18,14 @@
   </div>
 </template>
 <script setup>
-import Icon from '@/components/Icon.vue'
+import CitronMascot from '@/components/CitronMascot.vue'
 import { computed } from 'vue'
 
 const props = defineProps({
   name: { type: String, required: true },
   title: { type: String, default: '' },
   description: { type: String, default: '' },
+  // kept for API compatibility with existing callers; the mascot is the visual
   icon: {
     type: [String, Object],
     default: 'file-text',
@@ -57,3 +58,27 @@ const widthClass = computed(() => {
   }
 })
 </script>
+
+<style scoped>
+.citron-empty-state {
+  animation: citron-empty-in var(--inkblot-duration-slow, 320ms)
+    var(--inkblot-easing-signature, ease-out) both;
+}
+
+@keyframes citron-empty-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .citron-empty-state {
+    animation: none;
+  }
+}
+</style>

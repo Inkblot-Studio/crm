@@ -2,6 +2,8 @@
   <FrappeUIProvider>
     <NotPermitted v-if="$route.name === 'Not Permitted'" />
     <router-view v-else-if="$route.name === 'Onboarding'" />
+    <!-- pages have multi-root templates, so a router transition can't animate
+         them (Vue warns); page-level motion lives in each page instead -->
     <Layout v-else-if="session.isLoggedIn" class="isolate">
       <router-view :key="$route.fullPath" />
     </Layout>

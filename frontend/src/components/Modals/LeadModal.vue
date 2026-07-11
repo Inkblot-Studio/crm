@@ -26,12 +26,30 @@
           </div>
         </div>
         <div>
-          <FieldLayout v-if="tabs.data" :tabs="tabs.data" :data="lead.doc" />
-          <ErrorMessage v-if="error" class="mt-4" :message="__(error)" />
+          <GuidedFieldFlow
+            v-if="guided && tabs.data"
+            :tabs="tabs.data"
+            :data="lead.doc"
+            doctype="CRM Lead"
+            :createLabel="__('Create lead')"
+            :creating="isLeadCreating"
+            :error="error"
+            @complete="createNewLead"
+            @switchToForm="setGuided(false)"
+          />
+          <template v-else>
+            <FieldLayout v-if="tabs.data" :tabs="tabs.data" :data="lead.doc" />
+            <ErrorMessage v-if="error" class="mt-4" :message="__(error)" />
+          </template>
         </div>
       </div>
-      <div class="px-4 pb-7 pt-4 sm:px-6">
-        <div class="flex flex-row-reverse gap-2">
+      <div v-if="!guided" class="px-4 pb-7 pt-4 sm:px-6">
+        <div class="flex items-center justify-between gap-2">
+          <Button
+            variant="ghost"
+            :label="__('Use guided flow')"
+            @click="setGuided(true)"
+          />
           <Button
             variant="solid"
             :label="__('Create')"
@@ -47,6 +65,8 @@
 <script setup>
 import EditIcon from '@/components/Icons/EditIcon.vue'
 import FieldLayout from '@/components/FieldLayout/FieldLayout.vue'
+import GuidedFieldFlow from '@/components/GuidedFieldFlow.vue'
+import { useGuidedCreate } from '@/composables/useGuidedCreate'
 import { usersStore } from '@/stores/users'
 import { statusesStore } from '@/stores/statuses'
 import { sessionStore } from '@/stores/session'
@@ -68,6 +88,7 @@ const { getLeadStatus, statusOptions } = statusesStore()
 const { updateOnboardingStep } = useOnboarding('frappecrm')
 
 const show = defineModel({ type: Boolean })
+const { guided, setGuided } = useGuidedCreate()
 const router = useRouter()
 const error = ref(null)
 const isLeadCreating = ref(false)

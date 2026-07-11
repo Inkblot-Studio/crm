@@ -18,11 +18,11 @@ export default defineConfig(async ({ mode }) => {
         },
         manifest: {
           display: 'standalone',
-          name: 'Frappe CRM',
-          short_name: 'Frappe CRM',
+          name: 'Citron CRM',
+          short_name: 'Citron',
           start_url: '/crm',
           description:
-            'Modern & 100% Open-source CRM tool to supercharge your sales operations',
+            'Citron CRM — simple, fast customer relationships. Built by Inkblot Studio.',
           icons: [
             {
               src: '/assets/crm/manifest/manifest-icon-192.maskable.png',
@@ -76,6 +76,11 @@ export default defineConfig(async ({ mode }) => {
         'lowlight',
         'interactjs',
       ],
+      // frappe-ui ships raw source with `~icons/lucide/*` virtual imports that
+      // only the frappe-ui-lucide-icons vite plugin can resolve. esbuild's dep
+      // pre-bundler runs without vite plugins and crashes on them, so keep
+      // frappe-ui out of pre-bundling (its own bare deps still get optimized).
+      exclude: ['frappe-ui'],
     },
     server: {
       fs: {
@@ -83,13 +88,24 @@ export default defineConfig(async ({ mode }) => {
         // (frappe-ui, @framework/ui) that live in sibling app repos
         allow: [path.resolve(__dirname, '../..')],
       },
+      // Windows-host file edits don't emit inotify events through the Docker
+      // volume mount, so containerized dev (CRM_VITE_PORT set) must poll for
+      // changes or HMR never fires.
+      ...(process.env.CRM_VITE_PORT
+        ? { watch: { usePolling: true, interval: 400 } }
+        : {}),
     },
   }
 
   const frappeui = await importFrappeUIPlugin(isDev, config)
   config.plugins.unshift(
     frappeui({
-      frappeProxy: true,
+      // CRM_VITE_PORT lets containerized dev pick a host-mapped port
+      // (default derives 8080 from the webserver port, which our container
+      // doesn't expose). Unset = original behavior.
+      frappeProxy: process.env.CRM_VITE_PORT
+        ? { port: Number(process.env.CRM_VITE_PORT) }
+        : true,
       lucideIcons: true,
       jinjaBootData: true,
       buildConfig: {

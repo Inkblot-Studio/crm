@@ -2,11 +2,11 @@
   <div v-if="brand?.logo">
     <img :src="brand.logo" class="h-full w-full object-cover" />
   </div>
-  <CRMLogo v-else class="size-8 shrink-0 rounded" />
+  <CitronMascot v-else :size="30" class="shrink-0" />
 </template>
 
 <script setup>
-import CRMLogo from '@/components/Icons/CRMLogo.vue'
+import CitronMascot from '@/components/CitronMascot.vue'
 
 const brand = defineModel({ type: Object, default: () => ({}) })
 </script>

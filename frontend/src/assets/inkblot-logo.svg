@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="inkblot-logo-title">
+  <title id="inkblot-logo-title">Inkblot Studio</title>
+  <!-- Traced from the provided brand image: four white triangles alternating
+       direction on the Inkblot blue field. Keep geometry exact and flat. -->
+  <rect width="240" height="240" fill="#2563eb" />
+  <g fill="#ffffff">
+    <path d="M85 28 L155 63 L85 98 Z" />
+    <path d="M155 70 L85 105 L155 140 Z" />
+    <path d="M85 112 L155 147 L85 182 Z" />
+    <path d="M155 154 L85 189 L155 224 Z" />
+  </g>
+</svg>
