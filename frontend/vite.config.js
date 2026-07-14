@@ -83,6 +83,8 @@ export default defineConfig(async ({ mode }) => {
       exclude: ['frappe-ui'],
     },
     server: {
+      // Frappe resolves the site from the Host header — must match bench site name.
+      host: 'crm.localhost',
       fs: {
         // allow the bench `apps/` dir so Vite can serve linked local packages
         // (frappe-ui, @framework/ui) that live in sibling app repos

@@ -1,13 +1,12 @@
-#!bin/bash
+#!/bin/bash
 
 if [ -d "/home/frappe/frappe-bench/apps/frappe" ]; then
     echo "Bench already exists, skipping init"
     cd frappe-bench
-    bench start
-else
-    echo "Creating new bench..."
+    exec bench start
 fi
 
+echo "Creating new bench..."
 bench init --skip-redis-config-generation frappe-bench --version version-15
 
 cd frappe-bench

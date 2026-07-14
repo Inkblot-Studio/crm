@@ -42,7 +42,7 @@
   },
   "resolutions": {
     "dompurify": "3.4.0",
-    "brace-expansion": "2.1.0",
+    "minimatch@^10.0.0/brace-expansion": "5.0.2",
     "picomatch": "4.0.4"
   },
   "devDependencies": {

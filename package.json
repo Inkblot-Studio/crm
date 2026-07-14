@@ -14,7 +14,9 @@
 		"url": "https://github.com/frappe/crm/issues"
 	},
 	"scripts": {
-		"postinstall": "cd frontend && yarn install --check-files",
+		"postinstall": "cd frontend && yarn install",
+		"hc": "node devtools/hillcode.mjs",
+		"hillcode": "node devtools/hillcode.mjs",
 		"dev": "cd frontend && yarn dev",
 		"build": "cd frontend && yarn build",
 		"upgrade-frappeui": "cd frontend && yarn add frappe-ui@latest && cd ..",

@@ -2,13 +2,11 @@ import { defineStore } from 'pinia'
 import { createResource } from 'frappe-ui'
 import { sessionStore } from './session'
 import { computed, reactive } from 'vue'
-import { useRouter } from 'vue-router'
 
 export const usersStore = defineStore('crm-users', () => {
   const session = sessionStore()
 
   let usersByName = reactive({})
-  const router = useRouter()
 
   // Fast initial fetch — returns only the ~few CRM users so the UI is
   // interactive immediately. Non-CRM user profile data is filled in
@@ -29,8 +27,12 @@ export const usersStore = defineStore('crm-users', () => {
       return { allUsers, crmUsers }
     },
     onError(error) {
-      if (error && error.exc_type === 'AuthenticationError') {
-        router.push('/login')
+      if (
+        error &&
+        (error.exc_type === 'AuthenticationError' ||
+          error.exc_type === 'PermissionError')
+      ) {
+        window.location.href = '/login?redirect-to=/crm'
       }
     },
     onSuccess() {
@@ -110,6 +112,21 @@ export const usersStore = defineStore('crm-users', () => {
   function getUser(email) {
     if (!email || email === 'sessionUser') {
       email = session.user
+    }
+    if (!email) {
+      if (!usersByName.Guest) {
+        usersByName.Guest = {
+          name: 'Guest',
+          email: '',
+          full_name: 'Guest',
+          first_name: 'Guest',
+          last_name: '',
+          user_image: null,
+          role: null,
+          user_type: 'Website User',
+        }
+      }
+      return usersByName.Guest
     }
     if (!usersByName[email]) {
       usersByName[email] = {
