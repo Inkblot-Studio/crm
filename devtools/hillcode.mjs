@@ -45,7 +45,7 @@ const COMMANDS = {
   },
   dev: {
     label: "Start Vite frontend dev server",
-    hint: "http://crm.localhost:8080/crm (with bench/docker)",
+    hint: "http://crm.localhost:8090/crm (with bench/docker)",
     run: cmdDev,
   },
   docker: {
@@ -283,7 +283,7 @@ async function cmdDev() {
     console.log(style("  Vite will start, but API proxy errors are expected until the backend is ready.\n", "muted"));
   } else {
     console.log(style(`  Backend detected on :${BACKEND_PORT}`, "ok"));
-    console.log(style("  Open: http://crm.localhost:8080/crm  (not localhost — site name matters)", "brand"));
+    console.log(style("  Open: http://crm.localhost:8090/crm  (not localhost — site name matters)", "brand"));
     console.log(style("  Login: Administrator / admin\n", "muted"));
   }
 
@@ -314,7 +314,7 @@ async function cmdDocker(action) {
       console.log(style("  Tail logs: npm run hillcode -- --cmd docker-logs", "brand"));
     }
     console.log(style("  App: http://crm.localhost:8000/crm", "brand"));
-    console.log(style("  Frontend dev: npm run hillcode -- --cmd dev  →  http://crm.localhost:8080/crm", "muted"));
+    console.log(style("  Frontend dev: npm run hillcode -- --cmd dev  →  http://crm.localhost:8090/crm", "muted"));
     console.log(style("  Login: Administrator / admin\n", "muted"));
     return 0;
   }
@@ -379,7 +379,7 @@ async function cmdDoctor() {
     ["Docker stack", stackLabel],
     ["Backend :8000", backendUp ? style("running", "ok") : style("not ready", "err")],
     ["App (docker)", style("http://crm.localhost:8000/crm", "brand")],
-    ["Frontend dev", style("http://crm.localhost:8080/crm", "muted")],
+    ["Frontend dev", style("http://crm.localhost:8090/crm", "muted")],
   ];
   for (const [k, v] of rows) console.log(`  ${k.padEnd(16)} ${v}`);
   console.log("");

@@ -109,6 +109,11 @@ export default defineConfig(async ({ mode }) => {
     server: {
       // Frappe resolves the site from the Host header — must match bench site name.
       host: 'crm.localhost',
+      // NOT 8080: the ERP bench's nginx publishes *:8080, and a vite bind on
+      // [::1]:8080 silently shadows it for every *.localhost domain (Chrome
+      // resolves those to ::1 first) — API calls then hit the wrong frappe.
+      port: 8090,
+      strictPort: true,
       fs: {
         // allow the bench `apps/` dir so Vite can serve linked local packages
         // (frappe-ui, @framework/ui) that live in sibling app repos
