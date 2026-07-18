@@ -22,6 +22,15 @@ add_to_apps_screen = [
 	}
 ]
 
+# Brand the server-rendered pages (login, error pages) so the whole journey
+# reads Citron, not stock Frappe.
+app_logo_url = "/assets/crm/manifest/apple-icon-180.png"
+website_context = {
+	"favicon": "/assets/crm/manifest/apple-icon-180.png",
+	"splash_image": "/assets/crm/manifest/apple-icon-180.png",
+	"app_name": "Citron CRM",
+}
+
 get_site_info = "crm.activation.get_site_info"
 
 export_python_type_annotations = True

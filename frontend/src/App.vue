@@ -20,7 +20,7 @@ import DoctypeModals from '@/components/Modals/DoctypeModals.vue'
 import { Dialogs } from '@/utils/dialogs'
 import { sessionStore } from '@/stores/session'
 import { FrappeUIProvider, setConfig, useTheme } from 'frappe-ui'
-import { computed, defineAsyncComponent, provide } from 'vue'
+import { computed, defineAsyncComponent, provide, ref } from 'vue'
 
 const session = sessionStore()
 provide('session', session)
@@ -36,13 +36,13 @@ const MobileLayout = defineAsyncComponent(
 const DesktopLayout = defineAsyncComponent(
   () => import('./components/Layouts/DesktopLayout.vue'),
 )
-const Layout = computed(() => {
-  if (window.innerWidth < 640) {
-    return MobileLayout
-  } else {
-    return DesktopLayout
-  }
-})
+// Reactive breakpoint — reading window.innerWidth once froze the choice at
+// boot, so a desktop window that loaded narrow was stuck with the phone
+// layout (hamburger, no nav rail) until a hard reload.
+const desktopQuery = window.matchMedia('(min-width: 640px)')
+const isDesktop = ref(desktopQuery.matches)
+desktopQuery.addEventListener('change', (e) => (isDesktop.value = e.matches))
+const Layout = computed(() => (isDesktop.value ? DesktopLayout : MobileLayout))
 
 setConfig('systemTimezone', window.timezone?.system || null)
 setConfig('localTimezone', window.timezone?.user || null)

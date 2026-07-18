@@ -73,18 +73,18 @@ button:active {
 }
 
 [role='tab']:hover {
-  background: var(--inkblot-color-neutral-gray-100);
+  background: var(--surface-gray-2);
 }
 
 [role='tab'][aria-selected='true'] {
-  background: var(--inkblot-color-accent-citron-100);
-  color: var(--inkblot-color-neutral-gray-900);
+  background: var(--surface-amber-2);
+  color: var(--ink-gray-9);
 }
 
 /* Warm, quiet scrollbars. */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--inkblot-color-neutral-gray-300) transparent;
+  scrollbar-color: var(--outline-gray-2) transparent;
 }
 
 *::-webkit-scrollbar {
@@ -93,7 +93,7 @@ button:active {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: var(--inkblot-color-neutral-gray-300);
+  background: var(--outline-gray-2);
   border-radius: 999px;
 }
 
@@ -108,4 +108,14 @@ button:active {
   .citron-page-leave-active {
     transition: none !important;
   }
+}
+
+/* Display voice — Space Grotesk for page titles and modal headers, the same
+   header voice as the POS and citron-web. Body stays IBM Plex Sans. */
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--inkblot-typography-font-family-display);
+  letter-spacing: -0.01em;
 }
