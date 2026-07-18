@@ -134,9 +134,12 @@ export default defineConfig(async ({ mode }) => {
       // CRM_VITE_PORT lets containerized dev pick a host-mapped port
       // (default derives 8080 from the webserver port, which our container
       // doesn't expose). Unset = original behavior.
-      frappeProxy: process.env.CRM_VITE_PORT
-        ? { port: Number(process.env.CRM_VITE_PORT) }
-        : true,
+      // 8090, not the derived 8080 default — see the server block note.
+      // The plugin's config() merges over ours, so the port must be passed
+      // here, not in server.port.
+      frappeProxy: {
+        port: process.env.CRM_VITE_PORT ? Number(process.env.CRM_VITE_PORT) : 8090,
+      },
       lucideIcons: true,
       jinjaBootData: true,
       buildConfig: {

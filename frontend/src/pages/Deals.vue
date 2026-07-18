@@ -328,10 +328,13 @@ const columns = computed(() => {
 
   if (_columns.length) {
     _columns = _columns.map((col, index) => {
+      // column labels come raw from the server meta — run them through the
+      // same __() pipeline as every other chrome string
+      const translated = { ...col, label: __(col.label) }
       if (index === _columns.length - 1) {
-        return { ...col, align: 'right' }
+        return { ...translated, align: 'right' }
       }
-      return col
+      return translated
     })
   }
 

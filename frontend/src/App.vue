@@ -14,12 +14,15 @@
 </template>
 
 <script setup>
+import { bg } from '@/i18n/bg'
 import NotPermitted from '@/pages/NotPermitted.vue'
 import EventNotificationPopup from '@/components/EventNotificationPopup.vue'
 import DoctypeModals from '@/components/Modals/DoctypeModals.vue'
 import { Dialogs } from '@/utils/dialogs'
 import { sessionStore } from '@/stores/session'
 import { FrappeUIProvider, setConfig, useTheme } from 'frappe-ui'
+import dayjs from 'dayjs/esm'
+import 'dayjs/esm/locale/bg'
 import { computed, defineAsyncComponent, provide, ref } from 'vue'
 
 const session = sessionStore()
@@ -46,5 +49,16 @@ const Layout = computed(() => (isDesktop.value ? DesktopLayout : MobileLayout))
 
 setConfig('systemTimezone', window.timezone?.system || null)
 setConfig('localTimezone', window.timezone?.user || null)
-setConfig('translatedMessages', window.translated_messages || {})
+// The server's messages follow the user's language; the fork dictionary
+// overlays the daily chrome whenever Bulgarian is active. localStorage
+// ('crm_lang') lets a terminal force the language even against a backend
+// without bg locale files (dev benches, upstream containers).
+const activeLang = localStorage.getItem('crm_lang') || window.lang || 'en'
+const serverMessages = window.translated_messages || {}
+setConfig(
+  'translatedMessages',
+  activeLang.startsWith('bg') ? { ...serverMessages, ...bg } : serverMessages,
+)
+// relative timestamps ("10 hours ago") come from dayjs — same language switch
+if (activeLang.startsWith('bg')) dayjs.locale('bg')
 </script>
