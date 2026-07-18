@@ -1,5 +1,7 @@
 <template>
-  <div class="relative" :style="{ width: `${sidebarWidth}px` }">
+  <!-- min() keeps the drag-chosen width but yields on narrow windows, so
+       the panel never crushes the main column (768–1100px range) -->
+  <div class="relative" :style="{ width: `min(${sidebarWidth}px, 38vw)` }">
     <slot v-bind="{ sidebarResizing, sidebarWidth }" />
     <div
       class="absolute z-10 h-full w-1 cursor-col-resize bg-surface-gray-4 opacity-0 transition-opacity hover:opacity-100"

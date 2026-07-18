@@ -1,11 +1,10 @@
 <template>
+  <!-- the selected tab already names this section — repeating it as a
+       heading read as duplicate chrome, so the row is actions-only -->
   <div
     v-if="title !== 'Data'"
-    class="mx-4 my-3 flex items-center justify-between text-lg-medium sm:mx-10 sm:mb-4 sm:mt-8"
+    class="mx-4 my-2 flex items-center justify-end text-lg-medium sm:mx-10 sm:my-3"
   >
-    <div class="flex h-8 items-center text-2xl-semibold text-ink-gray-8">
-      {{ __(title) }}
-    </div>
     <Button
       v-if="title == 'Emails'"
       variant="solid"

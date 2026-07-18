@@ -63,8 +63,15 @@ button:active {
   border-bottom-color: transparent !important;
 }
 
+/* the sliding 2px underline is a second selection affordance on top of the
+   pill — one voice only (it renders before the triggers, hence :first-child) */
+[role='tablist'] > :first-child:not([role='tab']) {
+  display: none;
+}
+
 [role='tab'] {
   border-radius: var(--inkblot-radius-full);
+  padding: 0.375rem 0.875rem;
   transition:
     background-color var(--inkblot-duration-fast, 120ms)
       var(--inkblot-easing-default, ease),
