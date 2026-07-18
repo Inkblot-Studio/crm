@@ -11,12 +11,21 @@
     :modalRef="modalRef"
   />
   <FadedScrollableDiv class="flex flex-col h-full overflow-y-auto">
+    <!-- content-shaped skeleton instead of a centered spinner: the page keeps
+         its silhouette while data streams in, so loading reads as fast -->
     <div
       v-if="all_activities?.loading"
-      class="flex flex-1 flex-col items-center justify-center gap-3 text-2xl-medium text-ink-gray-4"
+      class="flex flex-col gap-6 px-3 py-6 sm:px-10"
+      aria-busy="true"
+      :aria-label="__('Loading...')"
     >
-      <LoadingIndicator class="h-6 w-6" />
-      <span>{{ __('Loading...') }}</span>
+      <div v-for="i in 4" :key="i" class="flex animate-pulse items-start gap-3">
+        <div class="size-8 shrink-0 rounded-full bg-surface-gray-2" />
+        <div class="flex w-full flex-col gap-2 pt-1">
+          <div class="h-3 rounded-full bg-surface-gray-2" :style="{ width: `${52 - i * 7}%` }" />
+          <div class="h-3 rounded-full bg-surface-gray-1" :style="{ width: `${34 - i * 4}%` }" />
+        </div>
+      </div>
     </div>
     <div v-else-if="title == 'Events'" class="h-full activity">
       <EventArea :doctype="doctype" :docname="docname" />
@@ -459,7 +468,6 @@ import WhatsAppIcon from '@/components/Icons/WhatsAppIcon.vue'
 import EventArea from '@/components/Activities/EventArea.vue'
 import WhatsAppArea from '@/components/Activities/WhatsAppArea.vue'
 import WhatsAppBox from '@/components/Activities/WhatsAppBox.vue'
-import LoadingIndicator from '@/components/Icons/LoadingIndicator.vue'
 import EmptyState from '@/components/ListViews/EmptyState.vue'
 import LeadsIcon from '@/components/Icons/LeadsIcon.vue'
 import DealsIcon from '@/components/Icons/DealsIcon.vue'

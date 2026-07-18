@@ -4,19 +4,21 @@
       class="grid size-7 shrink-0 place-items-center rounded-lg transition-colors duration-fast"
       :class="
         isOpen
-          ? 'bg-citron-100'
-          : 'hover:bg-surface-gray-2'
+          ? 'bg-surface-amber-2 text-ink-amber-3'
+          : 'text-ink-gray-6 hover:bg-surface-gray-2 hover:text-ink-gray-8'
       "
       :aria-label="__('AI assistant')"
       @click="toggleAIAssistant(context)"
     >
-      <CitronMascot :size="16" :state="isOpen ? 'blink' : 'idle'" />
+      <!-- distinct AI glyph — the mascot stays reserved for the app brand
+           mark in the nav rail, so it never appears twice on one screen -->
+      <LucideSparkles class="size-4" />
     </button>
   </Tooltip>
 </template>
 
 <script setup>
-import CitronMascot from '@/components/CitronMascot.vue'
+import LucideSparkles from '~icons/lucide/sparkles'
 import { Tooltip } from 'frappe-ui'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'

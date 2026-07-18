@@ -85,6 +85,7 @@
 <script setup>
 import BrushCleaningIcon from '~icons/lucide/brush-cleaning'
 import LucideHouse from '~icons/lucide/house'
+import LucideHistory from '~icons/lucide/history'
 import LucideLayoutDashboard from '~icons/lucide/layout-dashboard'
 import CRMLogo from '@/components/Icons/CRMLogo.vue'
 import InviteIcon from '@/components/Icons/InviteIcon.vue'
@@ -101,7 +102,6 @@ import OrganizationsIcon from '@/components/Icons/OrganizationsIcon.vue'
 import NoteIcon from '@/components/Icons/NoteIcon.vue'
 import TaskIcon from '@/components/Icons/TaskIcon.vue'
 import CalendarIcon from '@/components/Icons/CalendarIcon.vue'
-import PhoneIcon from '@/components/Icons/PhoneIcon.vue'
 import NotificationsIcon from '@/components/Icons/NotificationsIcon.vue'
 import HelpIcon from '@/components/Icons/HelpIcon.vue'
 import RailLink from '@/components/RailLink.vue'
@@ -198,7 +198,7 @@ const links = [
   },
   {
     label: 'Call Logs',
-    icon: PhoneIcon,
+    icon: LucideHistory,
     to: 'Call Logs',
   },
 ]

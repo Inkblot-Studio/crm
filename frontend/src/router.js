@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { defineAsyncComponent, defineComponent, h, ref } from 'vue'
 import { call } from 'frappe-ui'
 import { usersStore } from '@/stores/users'
 import { sessionStore } from '@/stores/session'
@@ -26,6 +27,33 @@ async function shouldCapturePersona() {
   }
 }
 
+// Record pages have Desktop/Mobile variants. Picking by window.innerWidth in
+// the lazy import froze the choice on first visit (vue-router caches the
+// resolved component), so a window that loaded narrow kept the phone page
+// forever. This wrapper re-renders the right variant whenever the
+// breakpoint flips.
+const recordPageQuery = window.matchMedia('(min-width: 768px)')
+const recordPageIsDesktop = ref(recordPageQuery.matches)
+recordPageQuery.addEventListener('change', (e) => {
+  recordPageIsDesktop.value = e.matches
+})
+
+const responsivePage = (componentName) => {
+  const Desktop = defineAsyncComponent(
+    () => import(`@/pages/${componentName}.vue`),
+  )
+  const Mobile = defineAsyncComponent(
+    () => import(`@/pages/Mobile${componentName}.vue`),
+  )
+  return defineComponent({
+    name: `${componentName}Responsive`,
+    inheritAttrs: false,
+    setup(_, { attrs }) {
+      return () => h(recordPageIsDesktop.value ? Desktop : Mobile, attrs)
+    },
+  })
+}
+
 const routes = [
   {
     path: '/',
@@ -51,7 +79,7 @@ const routes = [
   {
     path: '/leads/:leadId',
     name: 'Lead',
-    component: () => import(`@/pages/${handleMobileView('Lead')}.vue`),
+    component: responsivePage('Lead'),
     props: true,
   },
   {
@@ -63,7 +91,7 @@ const routes = [
   {
     path: '/deals/:dealId',
     name: 'Deal',
-    component: () => import(`@/pages/${handleMobileView('Deal')}.vue`),
+    component: responsivePage('Deal'),
     props: true,
   },
   {
@@ -87,7 +115,7 @@ const routes = [
   {
     path: '/contacts/:contactId',
     name: 'Contact',
-    component: () => import(`@/pages/${handleMobileView('Contact')}.vue`),
+    component: responsivePage('Contact'),
     props: true,
   },
   {
@@ -99,7 +127,7 @@ const routes = [
   {
     path: '/organizations/:organizationId',
     name: 'Organization',
-    component: () => import(`@/pages/${handleMobileView('Organization')}.vue`),
+    component: responsivePage('Organization'),
     props: true,
   },
   {
@@ -151,10 +179,6 @@ const routes = [
     component: () => import('@/pages/NotPermitted.vue'),
   },
 ]
-
-const handleMobileView = (componentName) => {
-  return window.innerWidth < 768 ? `Mobile${componentName}` : componentName
-}
 
 let router = createRouter({
   history: createWebHistory('/crm'),
