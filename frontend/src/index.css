@@ -30,3 +30,12 @@
 			prose-th:relative;
   }
 }
+
+/* ── Citron CRM accent ──────────────────────────────────────────────────────
+ * Each product in the Citron line carries its own colour. The whole UI follows
+ * from these two tokens; nothing else needs to know which product it is.
+ */
+:root {
+  --inkblot-semantic-color-accent-default: #E07A5F;
+  --inkblot-semantic-color-accent-subtle: #B45F49;
+}
